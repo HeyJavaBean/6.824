@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5a919722-7e7b-42e1-be2c-5240532dff04" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/mrsequential.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/mrsequential.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mr/master.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/mr/master.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mr/rpc.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/mr/rpc.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mr/worker.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/mr/worker.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mrapps/wc.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/mrapps/wc.go" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go File" />
+      </list>
+    </option>
+  </component>
+  <component name="GOROOT" path="/usr/lib/go-1.10" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1jMnpH0q4MAtV6PXqpXD7u0tKmR" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultGoTemplateProperty" value="Go File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="configurable.Global.GOPATH.is.expanded" value="true" />
+    <property name="configurable.Module.GOPATH.is.expanded" value="false" />
+    <property name="configurable.Project.GOPATH.is.expanded" value="true" />
+    <property name="go.import.settings.migrated" value="true" />
+    <property name="go.sdk.automatically.set" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Aione6824" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RunManager" selected="Go Build.go build test.go">
+    <configuration name="go build mrmaster.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="6.824" />
+      <working_directory value="$PROJECT_DIR$/src/main" />
+      <parameters value="pg-*.txt  " />
+      <kind value="FILE" />
+      <filePath value="$PROJECT_DIR$/src/main/mrmaster.go" />
+      <directory value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build mrsequential.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="6.824" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="FILE" />
+      <filePath value="$PROJECT_DIR$/src/main/mrsequential.go" />
+      <directory value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build mrworker.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="6.824" />
+      <working_directory value="$PROJECT_DIR$/src/main/" />
+      <parameters value="wc.so " />
+      <kind value="FILE" />
+      <filePath value="$PROJECT_DIR$/src/main/mrworker.go" />
+      <directory value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build test.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="6.824" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="FILE" />
+      <filePath value="$PROJECT_DIR$/src/main/test.go" />
+      <directory value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build worker.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="6.824" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="FILE" />
+      <filePath value="$PROJECT_DIR$/src/mr/worker.go" />
+      <directory value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Go Build.go build mrsequential.go" />
+      <item itemvalue="Go Build.go build mrworker.go" />
+      <item itemvalue="Go Build.go build test.go" />
+      <item itemvalue="Go Build.go build worker.go" />
+      <item itemvalue="Go Build.go build mrmaster.go" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Build.go build test.go" />
+        <item itemvalue="Go Build.go build mrmaster.go" />
+        <item itemvalue="Go Build.go build mrworker.go" />
+        <item itemvalue="Go Build.go build worker.go" />
+        <item itemvalue="Go Build.go build mrsequential.go" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1087" y="1602" width="831" height="711" key="#GOPATH" timestamp="1603623344206">
+      <screen x="332" y="1440" width="1920" height="1080" />
+    </state>
+    <state x="1087" y="1602" width="831" height="711" key="#GOPATH/332.1440.1920.1080/0.0.2560.1440@332.1440.1920.1080" timestamp="1603623344206" />
+    <state x="732" y="1416" width="1085" height="1020" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1604049719880">
+      <screen x="0" y="0" width="2560" height="2460" />
+    </state>
+    <state x="732" y="1416" width="1085" height="1020" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.2460@0.0.2560.2460" timestamp="1604049719880" />
+    <state x="750" y="1446" key="#com.intellij.execution.impl.EditConfigurationsDialog/332.1440.1920.1080/0.0.2560.1440@332.1440.1920.1080" timestamp="1603623077143" />
+    <state x="438" y="260" width="1034" height="516" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1603935030719">
+      <screen x="0" y="0" width="1920" height="1020" />
+    </state>
+    <state x="438" y="260" width="1034" height="516" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1020@0.0.1920.1020" timestamp="1603935030719" />
+    <state x="965" y="1761" width="708" height="597" key="#xdebugger.evaluate" timestamp="1604049894118">
+      <screen x="0" y="0" width="2560" height="2460" />
+    </state>
+    <state x="965" y="1761" width="708" height="597" key="#xdebugger.evaluate/0.0.2560.2460@0.0.2560.2460" timestamp="1604049894118" />
+    <state x="1033" y="608" key="FileChooserDialogImpl" timestamp="1604136336202">
+      <screen x="0" y="0" width="2560" height="2460" />
+    </state>
+    <state x="1033" y="608" key="FileChooserDialogImpl/0.0.2560.2460@0.0.2560.2460" timestamp="1604136336202" />
+    <state x="1107" y="1707" key="FileChooserDialogImpl/332.1440.1920.1080/0.0.2560.1440@332.1440.1920.1080" timestamp="1603623342026" />
+    <state x="1114" y="1707" key="FileChooserDialogImpl/339.1440.1920.1080/0.0.2560.1440@339.1440.1920.1080" timestamp="1603698167522" />
+    <state width="1838" height="2" key="GridCell.Tab.0.bottom" timestamp="1604057305494">
+      <screen x="0" y="0" width="2560" height="2460" />
+    </state>
+    <state width="1838" height="2" key="GridCell.Tab.0.bottom/0.0.2560.2460@0.0.2560.2460" timestamp="1604057305494" />
+    <state width="1838" height="2" key="GridCell.Tab.0.center" timestamp="1604057305494">
+      <screen x="0" y="0" width="2560" height="2460" />
+    </state>
+    <state width="1838" height="2" key="GridCell.Tab.0.center/0.0.2560.2460@0.0.2560.2460" timestamp="1604057305494" />
+    <state width="1838" height="2" key="GridCell.Tab.0.left" timestamp="1604057305494">
+      <screen x="0" y="0" width="2560" height="2460" />
+    </state>
+    <state width="1838" height="2" key="GridCell.Tab.0.left/0.0.2560.2460@0.0.2560.2460" timestamp="1604057305494" />
+    <state width="1838" height="2" key="GridCell.Tab.0.right" timestamp="1604057305494">
+      <screen x="0" y="0" width="2560" height="2460" />
+    </state>
+    <state width="1838" height="2" key="GridCell.Tab.0.right/0.0.2560.2460@0.0.2560.2460" timestamp="1604057305494" />
+    <state width="1838" height="2" key="GridCell.Tab.1.bottom" timestamp="1604057305494">
+      <screen x="0" y="0" width="2560" height="2460" />
+    </state>
+    <state width="1838" height="2" key="GridCell.Tab.1.bottom/0.0.2560.2460@0.0.2560.2460" timestamp="1604057305494" />
+    <state width="1838" height="2" key="GridCell.Tab.1.center" timestamp="1604057305494">
+      <screen x="0" y="0" width="2560" height="2460" />
+    </state>
+    <state width="1838" height="2" key="GridCell.Tab.1.center/0.0.2560.2460@0.0.2560.2460" timestamp="1604057305494" />
+    <state width="1838" height="2" key="GridCell.Tab.1.left" timestamp="1604057305494">
+      <screen x="0" y="0" width="2560" height="2460" />
+    </state>
+    <state width="1838" height="2" key="GridCell.Tab.1.left/0.0.2560.2460@0.0.2560.2460" timestamp="1604057305494" />
+    <state width="1838" height="2" key="GridCell.Tab.1.right" timestamp="1604057305494">
+      <screen x="0" y="0" width="2560" height="2460" />
+    </state>
+    <state width="1838" height="2" key="GridCell.Tab.1.right/0.0.2560.2460@0.0.2560.2460" timestamp="1604057305494" />
+    <state x="322" y="0" width="1590" height="1440" key="SettingsEditor" timestamp="1603956743798">
+      <screen x="0" y="0" width="2560" height="2460" />
+    </state>
+    <state x="490" y="167" width="1192" height="748" key="SettingsEditor/0.0.1920.1020@0.0.1920.1020" timestamp="1603935361841" />
+    <state x="322" y="0" width="1590" height="1440" key="SettingsEditor/0.0.2560.2460@0.0.2560.2460" timestamp="1603956743798" />
+    <state x="822" y="1617" width="1192" height="768" key="SettingsEditor/332.1440.1920.1080/0.0.2560.1440@332.1440.1920.1080" timestamp="1603623197550" />
+    <state width="529" height="463" key="SwitcherDM" timestamp="1603973306051">
+      <screen x="0" y="0" width="2560" height="2460" />
+    </state>
+    <state width="529" height="463" key="SwitcherDM/0.0.2560.2460@0.0.2560.2460" timestamp="1603973306051" />
+    <state width="960" height="510" key="XDebugger.FullValuePopup" timestamp="1604049881601">
+      <screen x="0" y="0" width="2560" height="2460" />
+    </state>
+    <state width="960" height="510" key="XDebugger.FullValuePopup/0.0.2560.2460@0.0.2560.2460" timestamp="1604049881601" />
+    <state x="661" y="502" width="1234" height="1710" key="search.everywhere.popup" timestamp="1604050143837">
+      <screen x="0" y="0" width="2560" height="2460" />
+    </state>
+    <state x="496" y="208" width="925" height="709" key="search.everywhere.popup/0.0.1920.1020@0.0.1920.1020" timestamp="1604028632961" />
+    <state x="661" y="502" width="1234" height="1710" key="search.everywhere.popup/0.0.2560.2460@0.0.2560.2460" timestamp="1604050143837" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/test.go</url>
+          <line>8</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/mr/worker.go</url>
+          <line>43</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/mrworker.go</url>
+          <line>19</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/src/main/mrmaster.go</url>
+          <line>17</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
