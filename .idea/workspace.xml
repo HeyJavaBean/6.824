@@ -5,12 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5a919722-7e7b-42e1-be2c-5240532dff04" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/mrsequential.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/mrsequential.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/mr-out-0" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/mr-out-0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/mr-out-1" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/mr-out-1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/mr-out-2" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/mr-out-2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/mr-out-3" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/mr-out-3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/mr-out-4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/mr-out-4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/mr-out-5" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/mr-out-5" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/mr-out-6" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/mr-out-6" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/mr-out-7" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/mr-out-7" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/mr-out-8" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/mr-out-8" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/mr-out-9" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/mr-out-9" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/mrmaster" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/mrmaster" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/mrsequential" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/mrsequential" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/mrworker" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/mrworker" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mr/master.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/mr/master.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mr/rpc.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/mr/rpc.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mr/worker.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/mr/worker.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mrapps/wc.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/mrapps/wc.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -179,11 +190,11 @@
       <screen x="0" y="0" width="2560" height="2460" />
     </state>
     <state width="960" height="510" key="XDebugger.FullValuePopup/0.0.2560.2460@0.0.2560.2460" timestamp="1604049881601" />
-    <state x="661" y="502" width="1234" height="1710" key="search.everywhere.popup" timestamp="1604050143837">
+    <state x="661" y="502" width="1234" height="1710" key="search.everywhere.popup" timestamp="1604149023483">
       <screen x="0" y="0" width="2560" height="2460" />
     </state>
     <state x="496" y="208" width="925" height="709" key="search.everywhere.popup/0.0.1920.1020@0.0.1920.1020" timestamp="1604028632961" />
-    <state x="661" y="502" width="1234" height="1710" key="search.everywhere.popup/0.0.2560.2460@0.0.2560.2460" timestamp="1604050143837" />
+    <state x="661" y="502" width="1234" height="1710" key="search.everywhere.popup/0.0.2560.2460@0.0.2560.2460" timestamp="1604149023483" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -195,7 +206,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/src/mr/worker.go</url>
-          <line>43</line>
+          <line>42</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">

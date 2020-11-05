@@ -7,7 +7,6 @@ import (
 	"os"
 	"sort"
 	"strconv"
-	"strings"
 	"time"
 )
 import "log"
@@ -46,25 +45,19 @@ func Worker(mapf func(string, string) []KeyValue,
 		call("Master.GetTask", &args, &reply)
 
 		if reply.Type==Task_Wait {
-			//todo ?
 			time.Sleep(time.Duration(1)*time.Second)
 			continue
 		}else if reply.Type==Task_Map{
-			mapTask(reply.Task.TaskFile,reply.NReduce,reply.Task.TaskId,mapf)
-
+			mapTask(&reply.Task,reply.NReduce,mapf)
 		}else if reply.Type==Task_Reduce{
-
-			reduceTask(reply.Task.TaskId,reducef)
-
+			reduceTask(reply.Task.TaskId,reply.NReduce,reducef)
 		}else {
 			break
 		}
-
 		//任务完成，反馈情况
-		arg := RpcArgs{}
-		arg.Type=reply.Type
-		arg.TaskId = reply.Task.TaskId
-		call("Master.TaskComplete",&arg,&reply)
+		args.Type=reply.Type
+		args.TaskId = reply.Task.TaskId
+		call("Master.TaskComplete",&args,&reply)
 	}
 
 }
@@ -78,25 +71,14 @@ func (a ByKey) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
 func (a ByKey) Less(i, j int) bool { return a[i].Key < a[j].Key }
 
 
-func reduceTask(reduceId string,reducef func(string, []string) string) {
+func reduceTask(reduceId string,nMap int,reducef func(string, []string) string) {
 
-	//可变数组？？？
-	tar:=[]*os.File{}
-	dirname := "."
-	files, _ := ioutil.ReadDir(dirname)
-	for _,f := range files {
-		name := f.Name()
-		if strings.HasPrefix(name,"mr-") {
-			len:=len(name)
-			s := name[len-1 : len]
-			if strings.EqualFold(s,reduceId) {
-				target, _ := os.Open(dirname + "/" + f.Name())
-				defer target.Close()
-				tar = append(tar, target)
-			}
-		}
+	//读取目标文件
+	tar:=make([]*os.File,nMap)
+	for i := range tar {
+		oname := "mr-"+strconv.Itoa(i)+"-"+reduceId
+		tar[i], _ = os.Open(oname)
 	}
-
 
 	//现在开始读取
 	intermediate := []KeyValue{}
@@ -117,10 +99,13 @@ func reduceTask(reduceId string,reducef func(string, []string) string) {
 
 	sort.Sort(ByKey(intermediate))
 
-	//创建输出文件
-	oname := "mr-out-"+reduceId
-	ofile, _ := os.Create(oname)
-	defer ofile.Close()
+	tmp, err := ioutil.TempFile("", "reduce-*.tmp")
+	if err != nil {
+		log.Fatal(err)
+		//log.Fatalf("cantnot create tmpFile")
+	}
+	defer os.Remove(tmp.Name())
+
 	i := 0
 	for i < len(intermediate) {
 		j := i + 1
@@ -132,14 +117,21 @@ func reduceTask(reduceId string,reducef func(string, []string) string) {
 			values = append(values, intermediate[k].Value)
 		}
 		output := reducef(intermediate[i].Key, values)
-		fmt.Fprintf(ofile, "%v %v\n", intermediate[i].Key, output)
+		fmt.Fprintf(tmp, "%v %v\n", intermediate[i].Key, output)
 		i = j
 	}
+
+	oname := "mr-out-"+reduceId
+	os.Rename(tmp.Name(), oname)
+	defer tmp.Close()
+
 }
 
 
-func mapTask(filename string,nReduce int,mapId string,mapf func(string, string) []KeyValue) {
+func mapTask(task *Task,nReduce int,mapf func(string, string) []KeyValue) {
 
+	filename := task.TaskFile
+	mapId := task.TaskId
 
 	intermediate := []KeyValue{}
 	tar, err := os.Open(filename)
@@ -159,27 +151,28 @@ func mapTask(filename string,nReduce int,mapId string,mapf func(string, string) 
 	intermediate = append(intermediate, kva...)
 
 	//先输出至临时文件最后再重命名，保证在crash的时候文件的拥有合法文件名的内容是正确的
-	//todo 还没做
-
 
 	files := make([]*os.File,nReduce)
-	encs := make([]*json.Encoder,nReduce)
 
 	for i:=0;i<nReduce;i++ {
-		oname := "mr-"+mapId+"-"+strconv.Itoa(i)
-		f, _ := os.Create(oname)
-		defer f.Close()
-		files[i] = f
-		encs[i] = json.NewEncoder(f)
+		files[i], err = ioutil.TempFile("", "map-*.tmp")
+		if err != nil {
+			log.Fatal(err)
+			//log.Fatalf("cantnot create tmpFile")
+		}
+		defer os.Remove(files[i].Name())
 	}
 
 	for _,kv := range intermediate {
-		y:=ihash(kv.Key)%nReduce
-		encs[y].Encode(&kv)
+		output := files[ihash(kv.Key)%nReduce]
+		json.NewEncoder(output).Encode(&kv)
 	}
 
-
-
+	for i := 0; i < nReduce; i++ {
+		oname := "mr-"+mapId+"-"+strconv.Itoa(i)
+		os.Rename(files[i].Name(), oname)
+		defer files[i].Close()
+	}
 
 }
 
