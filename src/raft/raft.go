@@ -100,6 +100,16 @@ type Raft struct {
 
 }
 
+
+
+func (a *AppendEntriesArgs) String() string{
+
+	str :="【Send】:\n=>Term:"+strconv.Itoa(a.Term)+"\n=>LeaderCommit:"+strconv.Itoa(a.LeaderCommit)+"\n=>PrevLogTerm:"+strconv.Itoa(a.PrevLogTerm)+
+		"\n=>PrevLogIndex:"+strconv.Itoa(a.PrevLogIndex)
+
+	return str
+}
+
 type AppendEntriesArgs struct {
 	Term         int
 	LeaderId     int
@@ -242,35 +252,47 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 		rf.beFollower(args.Term)
 	}
 	reply.Term = rf.currentTerm
-	success := false
+
 	if args.Term < rf.currentTerm {
 		return
 	}
-	prevLogIndexTerm := -1
-	//可以正常计算的情况
-	if args.PrevLogIndex>=0 && args.PrevLogIndex < len(rf.log){
-		prevLogIndexTerm = rf.log[args.PrevLogIndex].Term
-	}
 
-	//失败的情况，需要返回
-	if prevLogIndexTerm!=args.PrevLogTerm{
+
+	localLastTerm :=  rf.getLastLogTerm()
+	localLastIndex := rf.getLastLogIndex()
+
+	//不匹配的情况，让别人回滚一条
+	if localLastIndex!=args.PrevLogIndex||localLastTerm!=args.PrevLogTerm{
+		fmt.Println(rf.me,":failed")
+		fmt.Println(rf.me,":term ",localLastTerm)
+		fmt.Println(rf.me,":index ",localLastIndex)
 		return
 	}
 
-	success = true
-	reply.Success = success
+	//匹配了则进行拼接
+	reply.Success = true
 
+	//添加目录
+	if len(args.Entries)>0{
 
-	newLog := []Log{}
-	newLog = append(newLog,rf.log[:args.PrevLogIndex+1]...)
-	newLog = append(newLog,args.Entries...)
-	rf.log = newLog
+		newLog := []Log{}
+		newLog = append(newLog,rf.log[:args.PrevLogIndex+1]...)
+		newLog = append(newLog,args.Entries...)
+		rf.log = newLog
+		fmt.Println(rf.me," Be Appened :Log is now ->",rf.log)
+	}
+
 	//修改提交
-	if args.LeaderCommit >= rf.commitIndex{
-		rf.commitIndex = Min(args.LeaderCommit,rf.getLastLogIndex())
+	if args.LeaderCommit > rf.commitIndex{
+		//commit变成可以提交的那个index
+		rf.commitIndex = Min(args.LeaderCommit,len(rf.log)-1)
+		fmt.Println(rf.me,":ready to update,commitIndex is:",rf.commitIndex," leaderCommit:",args.LeaderCommit)
 		rf.updateLastApplied()
 	}
-	fmt.Println("[Log]:",rf.log)
+
+	fmt.Println( rf.me,"commit index is ",rf.commitIndex)
+
+
 }
 
 func (rf *Raft) updateLastApplied(){
@@ -282,9 +304,10 @@ func (rf *Raft) updateLastApplied(){
 			curLog,
 			rf.lastApplied,
 		}
-		fmt.Println("hey yo send:",msg)
+		fmt.Println(rf.me,"hey yo send:",msg)
 		rf.applyCh<-msg
 	}
+	fmt.Println(rf.me,":now last apply is ",rf.lastApplied, "commit index is ",rf.commitIndex)
 }
 
 func Min(a,b int) int{
@@ -301,6 +324,7 @@ func (rf *Raft) startAppendLog() {
 		if i!=rf.me{
 			go func(idx int){
 				//一直需要去同步核对节点?
+				offset :=0
 				for {
 					//这里他发送的时候又去检测了一下本机是不是leader
 					//这种边界检查真的很多很多....
@@ -308,26 +332,40 @@ func (rf *Raft) startAppendLog() {
 						return
 					}
 
+					prevLogIndex := rf.getLastLogIndex()-offset
+					prevLogTerm := rf.log[prevLogIndex].Term
+
+					nextIndex := rf.nextIndex[idx]+1
+
+					if nextIndex>len(rf.log){
+						nextIndex = len(rf.log)
+					}
+
 					args := AppendEntriesArgs{
+
 						rf.currentTerm,
 						rf.me,
-						//todo 不是很懂得
-						append([]Log{},rf.log[rf.nextIndex[idx]:]...),
+
+
+						append([]Log{},rf.log[nextIndex:]...),
 						rf.commitIndex,
 
-						rf.getLastLogIndex(),
-						rf.getLastLogTerm(),
+						prevLogIndex,
+						prevLogTerm,
+
 					}
+
+
+					fmt.Println("---------------")
+					fmt.Println(rf.me,":",args.String())
+					fmt.Println(args.Entries)
+					fmt.Println("---------------")
 
 					reply := &AppendEntriesReply{}
 
-					fmt.Println("Send:",
-						rf.me,"=>",idx,":",
-						"[Term:",rf.currentTerm,"] [LC:",rf.commitIndex,"] [PreIn:",rf.getLastLogIndex(),"] [PreT:",
-						rf.getLastLogTerm(),"]\nEntry Is:",append([]Log{},rf.log[rf.nextIndex[idx]:]...))
 					ret := rf.sendAppendEntries(idx,&args,reply)
 
-					fmt.Println("Get:",idx,"=>",rf.me,":[Term:",strconv.Itoa(reply.Term),"] [Success:",reply.Success,"]")
+
 					if !ret{
 						return
 					}
@@ -341,14 +379,16 @@ func (rf *Raft) startAppendLog() {
 						rf.matchIndex[idx] = args.PrevLogIndex + len(args.Entries)
 						rf.nextIndex[idx] = rf.matchIndex[idx] + 1
 						rf.updateCommitIndex()
-						fmt.Println("[Server for ",idx,"]: MatchIndex:",rf.matchIndex[idx]," NextIndex:",rf.nextIndex[idx])
+						rf.updateLastApplied()
+
+						fmt.Println("[Server for ",idx,"]: MatchIndex:",rf.matchIndex[idx]," NextIndex:",rf.nextIndex[idx]," CommitIndex",rf.commitIndex)
 						return
 					}else{
 						//fixme
 						if rf.nextIndex[idx]>0{
 							rf.nextIndex[idx]--
 						}
-
+						offset++
 						//锁？
 					}
 
@@ -435,6 +475,8 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 
 		index = rf.getLastLogIndex()+1
 
+		fmt.Println("来活了，",command)
+
 		//todo
 		rf.log = append(rf.log, Log{
 			rf.currentTerm,command,
@@ -499,7 +541,8 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	//他谁都没投
 	rf.voteFor = NULL
 	//日志里也什么都没有
-	rf.log = make([]Log, 1)
+	rf.log = make([]Log, 0)
+	rf.log = append(rf.log, Log{-1,nil})
 	//这个似乎是给自动机用的
 	rf.commitIndex = 0
 	rf.lastApplied = 0
@@ -525,7 +568,7 @@ func (rf *Raft) startUp() {
 	//fixme 很多地方都是需要加锁的！！！
 
 	//heartbeatTime := time.Duration(rand.Intn(50)+15) * time.Millisecond
-	heartbeatTime := time.Duration(rand.Intn(500)+1500) * time.Millisecond
+	heartbeatTime := time.Duration(1000) * time.Millisecond
 	for {
 		//electionTimer := time.Duration(rand.Intn(100)+100) * time.Millisecond
 		//fmt.Println(rf.me,":I'm ",rf.state)
@@ -543,10 +586,9 @@ func (rf *Raft) startUp() {
 
 			//如果触发了超时  emmm这个是每次for过来又等一次吗
 			//case <-time.After(time.Duration(rand.Intn(150)+150) * time.Millisecond):
-			case <-time.After(time.Duration(rand.Intn(1500)+1500) * time.Millisecond):
+			case <-time.After(time.Duration(rand.Intn(5000)+3500) * time.Millisecond):
 				//变成candidiate
-				//todo 怎么优雅的写日志
-				fmt.Println(rf.me,":vote me please!")
+				//fmt.Println(rf.me,":vote me please!")
 				rf.beCandidate()
 			}
 		//如果是Leader
@@ -646,10 +688,13 @@ func (rf *Raft) getLastLogTerm() int {
 }
 
 func (rf *Raft) getLastLogIndex() int {
-	if len(rf.log)==1{
-		return 0
-	}
-	return len(rf.log) - 2
+
+	//if len(rf.log)==1{
+	//	return 0
+	//}
+	//
+	return len(rf.log) - 1
+
 }
 
 //todo ？？？？？
@@ -673,12 +718,13 @@ func (rf *Raft) beFollower(term int) {
 //变成leader
 func (rf *Raft) beLeader() {
 
-	fmt.Println(rf.me,":Hey I'm Leader!")
+
 	//emm非要合适下是不是CANDIDATE，因为可能竞争先变成Follower的情况
 	if rf.state != CANDIDATE {
 		return
 	}
 
+	//fmt.Println(rf.me,":Hey I'm Leader!")
 
 	//切换状态了
 	rf.state = LEADER

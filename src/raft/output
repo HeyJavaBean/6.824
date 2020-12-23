@@ -1,0 +1,2171 @@
+Test (2B): basic agreement ...
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:0
+=>PrevLogTerm:-1
+=>PrevLogIndex:0
+[]
+---------------
+2 commit index is  0
+1 :now last apply is  0 commit index is  0
+[Server for  2 ]: MatchIndex: 0  NextIndex: 1  CommitIndex 0
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:0
+=>PrevLogTerm:-1
+=>PrevLogIndex:0
+[]
+---------------
+0 commit index is  0
+1 :now last apply is  0 commit index is  0
+[Server for  0 ]: MatchIndex: 0  NextIndex: 1  CommitIndex 0
+来活了， 100
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:0
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:0
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+0 :failed
+0 :term  -1
+0 :index  0
+2 :failed
+2 :term  -1
+2 :index  0
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:0
+=>PrevLogTerm:-1
+=>PrevLogIndex:0
+[{1 100}]
+---------------
+0  Be Appened :Log is now -> [{-1 <nil>} {1 100}]
+0 commit index is  0
+1 hey yo send: {true {1 100} 1}
+1 :now last apply is  1 commit index is  1
+[Server for  0 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:0
+=>PrevLogTerm:-1
+=>PrevLogIndex:0
+[{1 100}]
+---------------
+2  Be Appened :Log is now -> [{-1 <nil>} {1 100}]
+2 commit index is  0
+1 :now last apply is  1 commit index is  1
+[Server for  2 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+2 :ready to update,commitIndex is: 1  leaderCommit: 1
+2 hey yo send: {true {1 100} 1}
+2 :now last apply is  1 commit index is  1
+2 commit index is  1
+1 :now last apply is  1 commit index is  1
+[Server for  2 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+0 :ready to update,commitIndex is: 1  leaderCommit: 1
+0 hey yo send: {true {1 100} 1}
+0 :now last apply is  1 commit index is  1
+0 commit index is  1
+1 :now last apply is  1 commit index is  1
+[Server for  0 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
+--- FAIL: TestBasicAgree2B (6.36s)
+    config.go:471: one(100) failed to reach agreement
+Test (2B): RPC byte count ...
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:0
+=>PrevLogTerm:-1
+=>PrevLogIndex:0
+[]
+---------------
+2 commit index is  0
+0 :now last apply is  0 commit index is  0
+[Server for  2 ]: MatchIndex: 0  NextIndex: 1  CommitIndex 0
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:0
+=>PrevLogTerm:-1
+=>PrevLogIndex:0
+[]
+---------------
+1 commit index is  0
+0 :now last apply is  0 commit index is  0
+[Server for  1 ]: MatchIndex: 0  NextIndex: 1  CommitIndex 0
+来活了， 99
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:0
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:0
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+1 :failed
+1 :term  -1
+1 :index  0
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:0
+=>PrevLogTerm:-1
+=>PrevLogIndex:0
+[{1 99}]
+---------------
+2 :failed
+2 :term  -1
+2 :index  0
+1  Be Appened :Log is now -> [{-1 <nil>} {1 99}]
+1 commit index is  0
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:0
+=>PrevLogTerm:-1
+=>PrevLogIndex:0
+[{1 99}]
+---------------
+0 hey yo send: {true {1 99} 1}
+0 :now last apply is  1 commit index is  1
+[Server for  1 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
+2  Be Appened :Log is now -> [{-1 <nil>} {1 99}]
+2 commit index is  0
+0 :now last apply is  1 commit index is  1
+[Server for  2 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+1 :ready to update,commitIndex is: 1  leaderCommit: 1
+1 hey yo send: {true {1 99} 1}
+1 :now last apply is  1 commit index is  1
+1 commit index is  1
+2 :ready to update,commitIndex is: 1  leaderCommit: 1
+2 hey yo send: {true {1 99} 1}
+2 :now last apply is  1 commit index is  1
+2 commit index is  1
+0 :now last apply is  1 commit index is  1
+[Server for  1 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
+0 :now last apply is  1 commit index is  1
+[Server for  2 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
+--- FAIL: TestRPCBytes2B (6.15s)
+    config.go:471: one(99) failed to reach agreement
+Test (2B): agreement despite follower disconnection ...
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:0
+=>PrevLogTerm:-1
+=>PrevLogIndex:0
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:0
+=>PrevLogTerm:-1
+=>PrevLogIndex:0
+[]
+---------------
+0 commit index is  0
+1 :now last apply is  0 commit index is  0
+[Server for  0 ]: MatchIndex: 0  NextIndex: 1  CommitIndex 0
+[]
+---------------
+2 commit index is  0
+1 :now last apply is  0 commit index is  0
+[Server for  2 ]: MatchIndex: 0  NextIndex: 1  CommitIndex 0
+来活了， 101
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:0
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+2 :failed
+2 :term  -1
+2 :index  0
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:0
+=>PrevLogTerm:-1
+=>PrevLogIndex:0
+[{1 101}]
+---------------
+2  Be Appened :Log is now -> [{-1 <nil>} {1 101}]
+2 commit index is  0
+1 hey yo send: {true {1 101} 1}
+1 :now last apply is  1 commit index is  1
+[Server for  2 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+0 :failed
+0 :term  -1
+0 :index  0
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:-1
+=>PrevLogIndex:0
+[{1 101}]
+---------------
+0  Be Appened :Log is now -> [{-1 <nil>} {1 101}]
+0 :ready to update,commitIndex is: 1  leaderCommit: 1
+0 hey yo send: {true {1 101} 1}
+0 :now last apply is  1 commit index is  1
+0 commit index is  1
+1 :now last apply is  1 commit index is  1
+[Server for  0 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+0 commit index is  1
+2 :ready to update,commitIndex is: 1  leaderCommit: 1
+2 hey yo send: {true {1 101} 1}
+2 :now last apply is  1 commit index is  1
+2 commit index is  1
+1 :now last apply is  1 commit index is  1
+[Server for  0 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
+1 :now last apply is  1 commit index is  1
+[Server for  2 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
+--- FAIL: TestFailAgree2B (6.46s)
+    config.go:471: one(101) failed to reach agreement
+Test (2B): no agreement if too many followers disconnect ...
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:0
+=>PrevLogTerm:-1
+=>PrevLogIndex:0
+[]
+---------------
+4 commit index is  0
+3 :now last apply is  0 commit index is  0
+[Server for  4 ]: MatchIndex: 0  NextIndex: 1  CommitIndex 0
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:0
+=>PrevLogTerm:-1
+=>PrevLogIndex:0
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:0
+=>PrevLogTerm:-1
+=>PrevLogIndex:0
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:0
+=>PrevLogTerm:-1
+=>PrevLogIndex:0
+[]
+---------------
+2 commit index is  0
+0 commit index is  0
+3 :now last apply is  0 commit index is  0
+[Server for  2 ]: MatchIndex: 0  NextIndex: 1  CommitIndex 0
+1 commit index is  0
+3 :now last apply is  0 commit index is  0
+[Server for  0 ]: MatchIndex: 0  NextIndex: 1  CommitIndex 0
+3 :now last apply is  0 commit index is  0
+[Server for  1 ]: MatchIndex: 0  NextIndex: 1  CommitIndex 0
+来活了， 10
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:0
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:0
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:0
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+4 :failed
+4 :term  -1
+4 :index  0
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:0
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+1 :failed
+1 :term  -1
+1 :index  0
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:0
+=>PrevLogTerm:-1
+=>PrevLogIndex:0
+0 :failed
+0 :term  -1
+0 :index  0
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:0
+=>PrevLogTerm:-1
+=>PrevLogIndex:0
+[{1 10}]
+---------------
+2 :failed
+2 :term  -1
+2 :index  0
+1  Be Appened :Log is now -> [{-1 <nil>} {1 10}]
+1 commit index is  0
+3 :now last apply is  0 commit index is  0
+[Server for  1 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 0
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:0
+=>PrevLogTerm:-1
+=>PrevLogIndex:0
+[{1 10}]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:0
+=>PrevLogTerm:-1
+=>PrevLogIndex:0
+[{1 10}]
+---------------
+2  Be Appened :Log is now -> [{-1 <nil>} {1 10}]
+2 commit index is  0
+0  Be Appened :Log is now -> [{-1 <nil>} {1 10}]
+0 commit index is  0
+3 hey yo send: {true {1 10} 1}
+3 :now last apply is  1 commit index is  1
+[Server for  2 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
+[{1 10}]
+---------------
+3 :now last apply is  1 commit index is  1
+[Server for  0 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
+4  Be Appened :Log is now -> [{-1 <nil>} {1 10}]
+4 commit index is  0
+3 :now last apply is  1 commit index is  1
+[Server for  4 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+0 :ready to update,commitIndex is: 1  leaderCommit: 1
+0 hey yo send: {true {1 10} 1}
+0 :now last apply is  1 commit index is  1
+0 commit index is  1
+3 :now last apply is  1 commit index is  1
+[Server for  0 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+1 :ready to update,commitIndex is: 1  leaderCommit: 1
+1 hey yo send: {true {1 10} 1}
+1 :now last apply is  1 commit index is  1
+1 commit index is  1
+3 :now last apply is  1 commit index is  1
+[Server for  1 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+2 :ready to update,commitIndex is: 1  leaderCommit: 1
+2 hey yo send: {true {1 10} 1}
+2 :now last apply is  1 commit index is  1
+2 commit index is  1
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+3 :now last apply is  1 commit index is  1
+[Server for  2 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
+[]
+---------------
+4 :ready to update,commitIndex is: 1  leaderCommit: 1
+4 hey yo send: {true {1 10} 1}
+4 :now last apply is  1 commit index is  1
+4 commit index is  1
+3 :now last apply is  1 commit index is  1
+[Server for  4 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
+--- FAIL: TestFailNoAgree2B (6.91s)
+    config.go:471: one(10) failed to reach agreement
+Test (2B): concurrent Start()s ...
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+--- FAIL: TestConcurrentStarts2B (5.11s)
+    config.go:330: expected one leader, got none
+Test (2B): rejoin of partitioned leader ...
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+2 : 【Send】:
+=>Term:1
+=>LeaderCommit:0
+=>PrevLogTerm:-1
+=>PrevLogIndex:0
+[]
+---------------
+1 commit index is  0
+2 :now last apply is  0 commit index is  0
+[Server for  1 ]: MatchIndex: 0  NextIndex: 1  CommitIndex 0
+---------------
+2 : 【Send】:
+=>Term:1
+=>LeaderCommit:0
+=>PrevLogTerm:-1
+=>PrevLogIndex:0
+[]
+---------------
+0 commit index is  0
+2 :now last apply is  0 commit index is  0
+[Server for  0 ]: MatchIndex: 0  NextIndex: 1  CommitIndex 0
+来活了， 101
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+2 : 【Send】:
+=>Term:1
+=>LeaderCommit:0
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+1 :failed
+1 :term  -1
+1 :index  0
+---------------
+2 : 【Send】:
+=>Term:1
+=>LeaderCommit:0
+=>PrevLogTerm:-1
+=>PrevLogIndex:0
+[{1 101}]
+---------------
+1  Be Appened :Log is now -> [{-1 <nil>} {1 101}]
+1 commit index is  0
+2 hey yo send: {true {1 101} 1}
+2 :now last apply is  1 commit index is  1
+[Server for  1 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
+---------------
+2 : 【Send】:
+=>Term:1
+=>LeaderCommit:0
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+0 :failed
+0 :term  -1
+0 :index  0
+---------------
+2 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:-1
+=>PrevLogIndex:0
+[{1 101}]
+---------------
+0  Be Appened :Log is now -> [{-1 <nil>} {1 101}]
+0 :ready to update,commitIndex is: 1  leaderCommit: 1
+0 hey yo send: {true {1 101} 1}
+0 :now last apply is  1 commit index is  1
+0 commit index is  1
+2 :now last apply is  1 commit index is  1
+[Server for  0 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+1 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+0 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+2 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+1 :ready to update,commitIndex is: 1  leaderCommit: 1
+1 hey yo send: {true {1 101} 1}
+1 :now last apply is  1 commit index is  1
+1 commit index is  1
+2 :now last apply is  1 commit index is  1
+[Server for  1 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
+---------------
+2 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+0 commit index is  1
+2 :now last apply is  1 commit index is  1
+[Server for  0 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+---------------
+3 : 【Send】:
+=>Term:1
+=>LeaderCommit:1
+=>PrevLogTerm:1
+=>PrevLogIndex:1
+[]
+---------------
+来活了， 101
