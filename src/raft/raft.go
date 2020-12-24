@@ -18,7 +18,6 @@ package raft
 //
 
 import (
-	"fmt"
 	"math/rand"
 	"sort"
 	"strconv"
@@ -104,8 +103,14 @@ type Raft struct {
 
 func (a *AppendEntriesArgs) String() string{
 
-	str :="【Send】:\n=>Term:"+strconv.Itoa(a.Term)+"\n=>LeaderCommit:"+strconv.Itoa(a.LeaderCommit)+"\n=>PrevLogTerm:"+strconv.Itoa(a.PrevLogTerm)+
-		"\n=>PrevLogIndex:"+strconv.Itoa(a.PrevLogIndex)
+	es := "=>"
+	for _, e := range a.Entries {
+		s := strconv.Itoa(e.Term)
+		es  = es + s + ","
+	}
+
+	str :="=>Term:"+strconv.Itoa(a.Term)+";LC:"+strconv.Itoa(a.LeaderCommit)+";PreTerm:"+strconv.Itoa(a.PrevLogTerm)+
+		";PreIndex:"+strconv.Itoa(a.PrevLogIndex)+"\n"+es
 
 	return str
 }
@@ -221,7 +226,6 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 
 	} else{
 		//变成那人的follower
-		//fmt.Println(rf.me,":I vote for ",args.CandidateId)
 		rf.voteFor = args.CandidateId
 		success = true
 		rf.state = FOLLOWER
@@ -263,9 +267,7 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 
 	//不匹配的情况，让别人回滚一条
 	if localLastIndex!=args.PrevLogIndex||localLastTerm!=args.PrevLogTerm{
-		fmt.Println(rf.me,":failed")
-		fmt.Println(rf.me,":term ",localLastTerm)
-		fmt.Println(rf.me,":index ",localLastIndex)
+		DPrintf(strconv.Itoa(rf.me)+":failed"+" term "+strconv.Itoa(localLastTerm)+" index "+strconv.Itoa(localLastIndex))
 		return
 	}
 
@@ -279,18 +281,18 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 		newLog = append(newLog,rf.log[:args.PrevLogIndex+1]...)
 		newLog = append(newLog,args.Entries...)
 		rf.log = newLog
-		fmt.Println(rf.me," Be Appened :Log is now ->",rf.log)
+
+		DPrintf(strconv.Itoa(rf.me)+" Be Appened :Log is now ->")
 	}
 
 	//修改提交
 	if args.LeaderCommit > rf.commitIndex{
 		//commit变成可以提交的那个index
 		rf.commitIndex = Min(args.LeaderCommit,len(rf.log)-1)
-		fmt.Println(rf.me,":ready to update,commitIndex is:",rf.commitIndex," leaderCommit:",args.LeaderCommit)
 		rf.updateLastApplied()
 	}
 
-	fmt.Println( rf.me,"commit index is ",rf.commitIndex)
+
 
 
 }
@@ -301,13 +303,12 @@ func (rf *Raft) updateLastApplied(){
 		curLog:= rf.log[rf.lastApplied]
 		msg := ApplyMsg{
 			true,
-			curLog,
+			curLog.Command,
 			rf.lastApplied,
 		}
-		fmt.Println(rf.me,"hey yo send:",msg)
+
 		rf.applyCh<-msg
 	}
-	fmt.Println(rf.me,":now last apply is ",rf.lastApplied, "commit index is ",rf.commitIndex)
 }
 
 func Min(a,b int) int{
@@ -356,10 +357,10 @@ func (rf *Raft) startAppendLog() {
 					}
 
 
-					fmt.Println("---------------")
-					fmt.Println(rf.me,":",args.String())
-					fmt.Println(args.Entries)
-					fmt.Println("---------------")
+					DPrintf("---------------")
+					DPrintf(strconv.Itoa(rf.me)+":"+args.String())
+					DPrintf("---------------")
+
 
 					reply := &AppendEntriesReply{}
 
@@ -380,8 +381,6 @@ func (rf *Raft) startAppendLog() {
 						rf.nextIndex[idx] = rf.matchIndex[idx] + 1
 						rf.updateCommitIndex()
 						rf.updateLastApplied()
-
-						fmt.Println("[Server for ",idx,"]: MatchIndex:",rf.matchIndex[idx]," NextIndex:",rf.nextIndex[idx]," CommitIndex",rf.commitIndex)
 						return
 					}else{
 						//fixme
@@ -475,7 +474,7 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 
 		index = rf.getLastLogIndex()+1
 
-		fmt.Println("来活了，",command)
+		DPrintf(strconv.Itoa(rf.me)+":reviced command=>")
 
 		//todo
 		rf.log = append(rf.log, Log{
@@ -567,11 +566,10 @@ func (rf *Raft) startUp() {
 
 	//fixme 很多地方都是需要加锁的！！！
 
-	//heartbeatTime := time.Duration(rand.Intn(50)+15) * time.Millisecond
-	heartbeatTime := time.Duration(1000) * time.Millisecond
+
+	heartbeatTime := time.Duration(600) * time.Millisecond
 	for {
-		//electionTimer := time.Duration(rand.Intn(100)+100) * time.Millisecond
-		//fmt.Println(rf.me,":I'm ",rf.state)
+
 		//根据状态判断该干什么
 		switch rf.state {
 
@@ -584,18 +582,13 @@ func (rf *Raft) startUp() {
 			//如果收到master的心跳
 			case <-rf.appendLogCh:
 
-			//如果触发了超时  emmm这个是每次for过来又等一次吗
-			//case <-time.After(time.Duration(rand.Intn(150)+150) * time.Millisecond):
-			case <-time.After(time.Duration(rand.Intn(5000)+3500) * time.Millisecond):
-				//变成candidiate
-				//fmt.Println(rf.me,":vote me please!")
+			case <-time.After(time.Duration(rand.Intn(300)+700) * time.Millisecond):
+
 				rf.beCandidate()
 			}
 		//如果是Leader
 		case LEADER:
-			//开始做日志心跳，然后睡觉
-			//todo
-			//fmt.Println("Leader send troopers!")
+
 			rf.startAppendLog()
 			time.Sleep(heartbeatTime)
 		}
@@ -666,7 +659,6 @@ func (rf *Raft) startElection() {
 					//If votes received from majority of servers: become leader
 					//把检查票的部分直接加入到协程里每个地方去考虑了
 					if atomic.LoadInt32(&votes) > int32(len(rf.peers)/2) {
-						//fmt.Println(rf.me,":total people:",int32(len(rf.peers))," and I got ",votes," from ",idx)
 						rf.beLeader()
 						//确保自己不要卡在candidate 的 select那里 马上把心跳包发出去
 						send(rf.voteCh)
@@ -724,7 +716,8 @@ func (rf *Raft) beLeader() {
 		return
 	}
 
-	//fmt.Println(rf.me,":Hey I'm Leader!")
+
+	DPrintf(strconv.Itoa(rf.me)+":Now Leader"+" AND "+strconv.Itoa(rf.commitIndex))
 
 	//切换状态了
 	rf.state = LEADER

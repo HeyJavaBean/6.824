@@ -1,2171 +1,1053 @@
 Test (2B): basic agreement ...
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:0
-=>PrevLogTerm:-1
-=>PrevLogIndex:0
-[]
----------------
-2 commit index is  0
-1 :now last apply is  0 commit index is  0
-[Server for  2 ]: MatchIndex: 0  NextIndex: 1  CommitIndex 0
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:0
-=>PrevLogTerm:-1
-=>PrevLogIndex:0
-[]
----------------
-0 commit index is  0
-1 :now last apply is  0 commit index is  0
-[Server for  0 ]: MatchIndex: 0  NextIndex: 1  CommitIndex 0
-来活了， 100
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:0
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:0
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
-0 :failed
-0 :term  -1
-0 :index  0
-2 :failed
-2 :term  -1
-2 :index  0
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:0
-=>PrevLogTerm:-1
-=>PrevLogIndex:0
-[{1 100}]
----------------
-0  Be Appened :Log is now -> [{-1 <nil>} {1 100}]
-0 commit index is  0
-1 hey yo send: {true {1 100} 1}
-1 :now last apply is  1 commit index is  1
-[Server for  0 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:0
-=>PrevLogTerm:-1
-=>PrevLogIndex:0
-[{1 100}]
----------------
-2  Be Appened :Log is now -> [{-1 <nil>} {1 100}]
-2 commit index is  0
-1 :now last apply is  1 commit index is  1
-[Server for  2 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
-2 :ready to update,commitIndex is: 1  leaderCommit: 1
-2 hey yo send: {true {1 100} 1}
-2 :now last apply is  1 commit index is  1
-2 commit index is  1
-1 :now last apply is  1 commit index is  1
-[Server for  2 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
-0 :ready to update,commitIndex is: 1  leaderCommit: 1
-0 hey yo send: {true {1 100} 1}
-0 :now last apply is  1 commit index is  1
-0 commit index is  1
-1 :now last apply is  1 commit index is  1
-[Server for  0 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
---- FAIL: TestBasicAgree2B (6.36s)
-    config.go:471: one(100) failed to reach agreement
+2020/12/24 16:14:00 1:Now LeaderAND 0
+2020/12/24 16:14:00 ---------------
+2020/12/24 16:14:00 1:=>Term:1;LC:0;PreTerm:-1;PreIndex:0
+=>
+2020/12/24 16:14:00 ---------------
+2020/12/24 16:14:00 1:Now LeaderAND 0
+2020/12/24 16:14:00 ---------------
+2020/12/24 16:14:00 1:=>Term:1;LC:0;PreTerm:-1;PreIndex:0
+=>
+2020/12/24 16:14:00 ---------------
+2020/12/24 16:14:00 1:reviced command=>
+2020/12/24 16:14:01 ---------------
+2020/12/24 16:14:01 1:=>Term:1;LC:0;PreTerm:1;PreIndex:1
+=>
+2020/12/24 16:14:01 ---------------
+2020/12/24 16:14:01 2:failed term -1 index 0
+2020/12/24 16:14:01 ---------------
+2020/12/24 16:14:01 1:=>Term:1;LC:0;PreTerm:-1;PreIndex:0
+=>1,
+2020/12/24 16:14:01 ---------------
+2020/12/24 16:14:01 2 Be Appened :Log is now ->
+2020/12/24 16:14:01 ---------------
+2020/12/24 16:14:01 1:=>Term:1;LC:1;PreTerm:1;PreIndex:1
+=>
+2020/12/24 16:14:01 ---------------
+2020/12/24 16:14:01 0:failed term -1 index 0
+2020/12/24 16:14:01 ---------------
+2020/12/24 16:14:01 1:=>Term:1;LC:1;PreTerm:-1;PreIndex:0
+=>1,
+2020/12/24 16:14:01 ---------------
+2020/12/24 16:14:01 0 Be Appened :Log is now ->
+2020/12/24 16:14:02 ---------------
+2020/12/24 16:14:02 1:=>Term:1;LC:1;PreTerm:1;PreIndex:1
+=>
+2020/12/24 16:14:02 ---------------
+2020/12/24 16:14:02 ---------------
+2020/12/24 16:14:02 1:=>Term:1;LC:1;PreTerm:1;PreIndex:1
+=>
+2020/12/24 16:14:02 ---------------
+2020/12/24 16:14:02 1:reviced command=>
+2020/12/24 16:14:02 ---------------
+2020/12/24 16:14:02 1:=>Term:1;LC:1;PreTerm:1;PreIndex:2
+=>
+2020/12/24 16:14:02 ---------------
+2020/12/24 16:14:02 2:failed term 1 index 1
+2020/12/24 16:14:02 ---------------
+2020/12/24 16:14:02 1:=>Term:1;LC:1;PreTerm:1;PreIndex:1
+=>1,
+2020/12/24 16:14:02 ---------------
+2020/12/24 16:14:02 2 Be Appened :Log is now ->
+2020/12/24 16:14:02 ---------------
+2020/12/24 16:14:02 1:=>Term:1;LC:1;PreTerm:1;PreIndex:2
+=>
+2020/12/24 16:14:02 ---------------
+2020/12/24 16:14:02 0:failed term 1 index 1
+2020/12/24 16:14:02 ---------------
+2020/12/24 16:14:02 1:=>Term:1;LC:2;PreTerm:1;PreIndex:1
+=>1,
+2020/12/24 16:14:02 ---------------
+2020/12/24 16:14:02 0 Be Appened :Log is now ->
+2020/12/24 16:14:03 ---------------
+2020/12/24 16:14:03 1:=>Term:1;LC:2;PreTerm:1;PreIndex:2
+=>
+2020/12/24 16:14:03 ---------------
+2020/12/24 16:14:03 ---------------
+2020/12/24 16:14:03 1:=>Term:1;LC:2;PreTerm:1;PreIndex:2
+=>
+2020/12/24 16:14:03 ---------------
+2020/12/24 16:14:03 1:reviced command=>
+2020/12/24 16:14:03 ---------------
+2020/12/24 16:14:03 1:=>Term:1;LC:2;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:03 ---------------
+2020/12/24 16:14:03 2:failed term 1 index 2
+2020/12/24 16:14:03 ---------------
+2020/12/24 16:14:03 1:=>Term:1;LC:2;PreTerm:1;PreIndex:2
+=>1,
+2020/12/24 16:14:03 ---------------
+2020/12/24 16:14:03 2 Be Appened :Log is now ->
+2020/12/24 16:14:03 ---------------
+2020/12/24 16:14:03 1:=>Term:1;LC:2;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:03 ---------------
+2020/12/24 16:14:03 0:failed term 1 index 2
+2020/12/24 16:14:03 ---------------
+2020/12/24 16:14:03 1:=>Term:1;LC:3;PreTerm:1;PreIndex:2
+=>1,
+2020/12/24 16:14:03 ---------------
+2020/12/24 16:14:03 0 Be Appened :Log is now ->
+2020/12/24 16:14:04 ---------------
+2020/12/24 16:14:04 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:04 ---------------
+2020/12/24 16:14:04 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:04 ---------------
+2020/12/24 16:14:04 ---------------
+  ... Pass
+  ed --   4.4  3   22    5546    3
 Test (2B): RPC byte count ...
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:0
-=>PrevLogTerm:-1
-=>PrevLogIndex:0
-[]
----------------
-2 commit index is  0
-0 :now last apply is  0 commit index is  0
-[Server for  2 ]: MatchIndex: 0  NextIndex: 1  CommitIndex 0
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:0
-=>PrevLogTerm:-1
-=>PrevLogIndex:0
-[]
----------------
-1 commit index is  0
-0 :now last apply is  0 commit index is  0
-[Server for  1 ]: MatchIndex: 0  NextIndex: 1  CommitIndex 0
-来活了， 99
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:0
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:0
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-1 :failed
-1 :term  -1
-1 :index  0
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:0
-=>PrevLogTerm:-1
-=>PrevLogIndex:0
-[{1 99}]
----------------
-2 :failed
-2 :term  -1
-2 :index  0
-1  Be Appened :Log is now -> [{-1 <nil>} {1 99}]
-1 commit index is  0
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:0
-=>PrevLogTerm:-1
-=>PrevLogIndex:0
-[{1 99}]
----------------
-0 hey yo send: {true {1 99} 1}
-0 :now last apply is  1 commit index is  1
-[Server for  1 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
-2  Be Appened :Log is now -> [{-1 <nil>} {1 99}]
-2 commit index is  0
-0 :now last apply is  1 commit index is  1
-[Server for  2 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
-1 :ready to update,commitIndex is: 1  leaderCommit: 1
-1 hey yo send: {true {1 99} 1}
-1 :now last apply is  1 commit index is  1
-1 commit index is  1
-2 :ready to update,commitIndex is: 1  leaderCommit: 1
-2 hey yo send: {true {1 99} 1}
-2 :now last apply is  1 commit index is  1
-2 commit index is  1
-0 :now last apply is  1 commit index is  1
-[Server for  1 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
-0 :now last apply is  1 commit index is  1
-[Server for  2 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
---- FAIL: TestRPCBytes2B (6.15s)
-    config.go:471: one(99) failed to reach agreement
-Test (2B): agreement despite follower disconnection ...
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:0
-=>PrevLogTerm:-1
-=>PrevLogIndex:0
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:0
-=>PrevLogTerm:-1
-=>PrevLogIndex:0
-[]
----------------
-0 commit index is  0
-1 :now last apply is  0 commit index is  0
-[Server for  0 ]: MatchIndex: 0  NextIndex: 1  CommitIndex 0
-[]
----------------
-2 commit index is  0
-1 :now last apply is  0 commit index is  0
-[Server for  2 ]: MatchIndex: 0  NextIndex: 1  CommitIndex 0
-来活了， 101
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:0
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
-2 :failed
-2 :term  -1
-2 :index  0
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:0
-=>PrevLogTerm:-1
-=>PrevLogIndex:0
-[{1 101}]
----------------
-2  Be Appened :Log is now -> [{-1 <nil>} {1 101}]
-2 commit index is  0
-1 hey yo send: {true {1 101} 1}
-1 :now last apply is  1 commit index is  1
-[Server for  2 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
-0 :failed
-0 :term  -1
-0 :index  0
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:-1
-=>PrevLogIndex:0
-[{1 101}]
----------------
-0  Be Appened :Log is now -> [{-1 <nil>} {1 101}]
-0 :ready to update,commitIndex is: 1  leaderCommit: 1
-0 hey yo send: {true {1 101} 1}
-0 :now last apply is  1 commit index is  1
-0 commit index is  1
-1 :now last apply is  1 commit index is  1
-[Server for  0 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
-0 commit index is  1
-2 :ready to update,commitIndex is: 1  leaderCommit: 1
-2 hey yo send: {true {1 101} 1}
-2 :now last apply is  1 commit index is  1
-2 commit index is  1
-1 :now last apply is  1 commit index is  1
-[Server for  0 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
-1 :now last apply is  1 commit index is  1
-[Server for  2 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
---- FAIL: TestFailAgree2B (6.46s)
-    config.go:471: one(101) failed to reach agreement
-Test (2B): no agreement if too many followers disconnect ...
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:0
-=>PrevLogTerm:-1
-=>PrevLogIndex:0
-[]
----------------
-4 commit index is  0
-3 :now last apply is  0 commit index is  0
-[Server for  4 ]: MatchIndex: 0  NextIndex: 1  CommitIndex 0
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:0
-=>PrevLogTerm:-1
-=>PrevLogIndex:0
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:0
-=>PrevLogTerm:-1
-=>PrevLogIndex:0
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:0
-=>PrevLogTerm:-1
-=>PrevLogIndex:0
-[]
----------------
-2 commit index is  0
-0 commit index is  0
-3 :now last apply is  0 commit index is  0
-[Server for  2 ]: MatchIndex: 0  NextIndex: 1  CommitIndex 0
-1 commit index is  0
-3 :now last apply is  0 commit index is  0
-[Server for  0 ]: MatchIndex: 0  NextIndex: 1  CommitIndex 0
-3 :now last apply is  0 commit index is  0
-[Server for  1 ]: MatchIndex: 0  NextIndex: 1  CommitIndex 0
-来活了， 10
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:0
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:0
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:0
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
-4 :failed
-4 :term  -1
-4 :index  0
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:0
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
-1 :failed
-1 :term  -1
-1 :index  0
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:0
-=>PrevLogTerm:-1
-=>PrevLogIndex:0
-0 :failed
-0 :term  -1
-0 :index  0
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:0
-=>PrevLogTerm:-1
-=>PrevLogIndex:0
-[{1 10}]
----------------
-2 :failed
-2 :term  -1
-2 :index  0
-1  Be Appened :Log is now -> [{-1 <nil>} {1 10}]
-1 commit index is  0
-3 :now last apply is  0 commit index is  0
-[Server for  1 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 0
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:0
-=>PrevLogTerm:-1
-=>PrevLogIndex:0
-[{1 10}]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:0
-=>PrevLogTerm:-1
-=>PrevLogIndex:0
-[{1 10}]
----------------
-2  Be Appened :Log is now -> [{-1 <nil>} {1 10}]
-2 commit index is  0
-0  Be Appened :Log is now -> [{-1 <nil>} {1 10}]
-0 commit index is  0
-3 hey yo send: {true {1 10} 1}
-3 :now last apply is  1 commit index is  1
-[Server for  2 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
-[{1 10}]
----------------
-3 :now last apply is  1 commit index is  1
-[Server for  0 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
-4  Be Appened :Log is now -> [{-1 <nil>} {1 10}]
-4 commit index is  0
-3 :now last apply is  1 commit index is  1
-[Server for  4 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
-0 :ready to update,commitIndex is: 1  leaderCommit: 1
-0 hey yo send: {true {1 10} 1}
-0 :now last apply is  1 commit index is  1
-0 commit index is  1
-3 :now last apply is  1 commit index is  1
-[Server for  0 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
-1 :ready to update,commitIndex is: 1  leaderCommit: 1
-1 hey yo send: {true {1 10} 1}
-1 :now last apply is  1 commit index is  1
-1 commit index is  1
-3 :now last apply is  1 commit index is  1
-[Server for  1 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
-2 :ready to update,commitIndex is: 1  leaderCommit: 1
-2 hey yo send: {true {1 10} 1}
-2 :now last apply is  1 commit index is  1
-2 commit index is  1
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-3 :now last apply is  1 commit index is  1
-[Server for  2 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
-[]
----------------
-4 :ready to update,commitIndex is: 1  leaderCommit: 1
-4 hey yo send: {true {1 10} 1}
-4 :now last apply is  1 commit index is  1
-4 commit index is  1
-3 :now last apply is  1 commit index is  1
-[Server for  4 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
---- FAIL: TestFailNoAgree2B (6.91s)
-    config.go:471: one(10) failed to reach agreement
-Test (2B): concurrent Start()s ...
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
---- FAIL: TestConcurrentStarts2B (5.11s)
-    config.go:330: expected one leader, got none
-Test (2B): rejoin of partitioned leader ...
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-2 : 【Send】:
-=>Term:1
-=>LeaderCommit:0
-=>PrevLogTerm:-1
-=>PrevLogIndex:0
-[]
----------------
-1 commit index is  0
-2 :now last apply is  0 commit index is  0
-[Server for  1 ]: MatchIndex: 0  NextIndex: 1  CommitIndex 0
----------------
-2 : 【Send】:
-=>Term:1
-=>LeaderCommit:0
-=>PrevLogTerm:-1
-=>PrevLogIndex:0
-[]
----------------
-0 commit index is  0
-2 :now last apply is  0 commit index is  0
-[Server for  0 ]: MatchIndex: 0  NextIndex: 1  CommitIndex 0
-来活了， 101
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-2 : 【Send】:
-=>Term:1
-=>LeaderCommit:0
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
-1 :failed
-1 :term  -1
-1 :index  0
----------------
-2 : 【Send】:
-=>Term:1
-=>LeaderCommit:0
-=>PrevLogTerm:-1
-=>PrevLogIndex:0
-[{1 101}]
----------------
-1  Be Appened :Log is now -> [{-1 <nil>} {1 101}]
-1 commit index is  0
-2 hey yo send: {true {1 101} 1}
-2 :now last apply is  1 commit index is  1
-[Server for  1 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
----------------
-2 : 【Send】:
-=>Term:1
-=>LeaderCommit:0
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
-0 :failed
-0 :term  -1
-0 :index  0
----------------
-2 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:-1
-=>PrevLogIndex:0
-[{1 101}]
----------------
-0  Be Appened :Log is now -> [{-1 <nil>} {1 101}]
-0 :ready to update,commitIndex is: 1  leaderCommit: 1
-0 hey yo send: {true {1 101} 1}
-0 :now last apply is  1 commit index is  1
-0 commit index is  1
-2 :now last apply is  1 commit index is  1
-[Server for  0 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-1 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-0 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-2 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
-1 :ready to update,commitIndex is: 1  leaderCommit: 1
-1 hey yo send: {true {1 101} 1}
-1 :now last apply is  1 commit index is  1
-1 commit index is  1
-2 :now last apply is  1 commit index is  1
-[Server for  1 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
----------------
-2 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
-0 commit index is  1
-2 :now last apply is  1 commit index is  1
-[Server for  0 ]: MatchIndex: 1  NextIndex: 2  CommitIndex 1
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
----------------
-3 : 【Send】:
-=>Term:1
-=>LeaderCommit:1
-=>PrevLogTerm:1
-=>PrevLogIndex:1
-[]
----------------
-来活了， 101
+2020/12/24 16:14:05 ---------------
+2020/12/24 16:14:05 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:05 ---------------
+2020/12/24 16:14:05 ---------------
+2020/12/24 16:14:05 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:05 ---------------
+2020/12/24 16:14:05 0:Now LeaderAND 0
+2020/12/24 16:14:05 ---------------
+2020/12/24 16:14:05 0:=>Term:1;LC:0;PreTerm:-1;PreIndex:0
+=>
+2020/12/24 16:14:05 ---------------
+2020/12/24 16:14:05 0:Now LeaderAND 0
+2020/12/24 16:14:05 ---------------
+2020/12/24 16:14:05 0:=>Term:1;LC:0;PreTerm:-1;PreIndex:0
+=>
+2020/12/24 16:14:05 ---------------
+2020/12/24 16:14:05 0:reviced command=>
+2020/12/24 16:14:05 ---------------
+2020/12/24 16:14:05 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:05 ---------------
+2020/12/24 16:14:05 ---------------
+2020/12/24 16:14:05 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:05 ---------------
+2020/12/24 16:14:05 ---------------
+2020/12/24 16:14:05 0:=>Term:1;LC:0;PreTerm:1;PreIndex:1
+=>
+2020/12/24 16:14:05 ---------------
+2020/12/24 16:14:05 ---------------
+2020/12/24 16:14:05 0:=>Term:1;LC:0;PreTerm:1;PreIndex:1
+=>
+2020/12/24 16:14:05 ---------------
+2020/12/24 16:14:05 2:failed term -1 index 0
+2020/12/24 16:14:05 1:failed term -1 index 0
+2020/12/24 16:14:05 ---------------
+2020/12/24 16:14:05 0:=>Term:1;LC:0;PreTerm:-1;PreIndex:0
+=>1,
+2020/12/24 16:14:05 ---------------
+2020/12/24 16:14:05 ---------------
+2020/12/24 16:14:05 0:=>Term:1;LC:0;PreTerm:-1;PreIndex:0
+=>1,
+2020/12/24 16:14:05 ---------------
+2020/12/24 16:14:05 2 Be Appened :Log is now ->
+2020/12/24 16:14:05 1 Be Appened :Log is now ->
+2020/12/24 16:14:06 ---------------
+2020/12/24 16:14:06 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:06 ---------------
+2020/12/24 16:14:06 ---------------
+2020/12/24 16:14:06 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:06 ---------------
+2020/12/24 16:14:06 ---------------
+2020/12/24 16:14:06 0:=>Term:1;LC:1;PreTerm:1;PreIndex:1
+=>
+2020/12/24 16:14:06 ---------------
+2020/12/24 16:14:06 ---------------
+2020/12/24 16:14:06 0:=>Term:1;LC:1;PreTerm:1;PreIndex:1
+=>
+2020/12/24 16:14:06 ---------------
+2020/12/24 16:14:06 0:reviced command=>
+2020/12/24 16:14:06 ---------------
+2020/12/24 16:14:06 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:06 ---------------
+2020/12/24 16:14:06 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:06 ---------------
+2020/12/24 16:14:06 ---------------
+2020/12/24 16:14:07 ---------------
+2020/12/24 16:14:07 0:=>Term:1;LC:1;PreTerm:1;PreIndex:2
+=>
+2020/12/24 16:14:07 ---------------
+2020/12/24 16:14:07 0:=>Term:1;LC:1;PreTerm:1;PreIndex:2
+=>
+2020/12/24 16:14:07 ---------------
+2020/12/24 16:14:07 ---------------
+2020/12/24 16:14:07 1:failed term 1 index 1
+2020/12/24 16:14:07 ---------------
+2020/12/24 16:14:07 0:=>Term:1;LC:1;PreTerm:1;PreIndex:1
+=>1,
+2020/12/24 16:14:07 ---------------
+2020/12/24 16:14:07 2:failed term 1 index 1
+2020/12/24 16:14:07 ---------------
+2020/12/24 16:14:07 0:=>Term:1;LC:1;PreTerm:1;PreIndex:1
+=>1,
+2020/12/24 16:14:07 ---------------
+2020/12/24 16:14:07 1 Be Appened :Log is now ->
+2020/12/24 16:14:07 2 Be Appened :Log is now ->
+2020/12/24 16:14:07 ---------------
+2020/12/24 16:14:07 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:07 ---------------
+2020/12/24 16:14:07 ---------------
+2020/12/24 16:14:07 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:07 ---------------
+2020/12/24 16:14:07 ---------------
+2020/12/24 16:14:07 0:=>Term:1;LC:2;PreTerm:1;PreIndex:2
+=>
+2020/12/24 16:14:07 ---------------
+2020/12/24 16:14:07 ---------------
+2020/12/24 16:14:07 0:=>Term:1;LC:2;PreTerm:1;PreIndex:2
+=>
+2020/12/24 16:14:07 ---------------
+2020/12/24 16:14:07 0:reviced command=>
+2020/12/24 16:14:08 ---------------
+2020/12/24 16:14:08 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:08 ---------------
+2020/12/24 16:14:08 ---------------
+2020/12/24 16:14:08 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:08 ---------------
+2020/12/24 16:14:08 ---------------
+2020/12/24 16:14:08 0:=>Term:1;LC:2;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:08 ---------------
+2020/12/24 16:14:08 2:failed term 1 index 2
+2020/12/24 16:14:08 ---------------
+2020/12/24 16:14:08 0:=>Term:1;LC:2;PreTerm:1;PreIndex:2
+=>1,
+2020/12/24 16:14:08 ---------------
+2020/12/24 16:14:08 2 Be Appened :Log is now ->
+2020/12/24 16:14:08 ---------------
+2020/12/24 16:14:08 0:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:08 ---------------
+2020/12/24 16:14:08 1:failed term 1 index 2
+2020/12/24 16:14:08 ---------------
+2020/12/24 16:14:08 0:=>Term:1;LC:3;PreTerm:1;PreIndex:2
+=>1,
+2020/12/24 16:14:08 ---------------
+2020/12/24 16:14:08 1 Be Appened :Log is now ->
+2020/12/24 16:14:08 ---------------
+2020/12/24 16:14:08 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:08 ---------------
+2020/12/24 16:14:08 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:08 ---------------
+2020/12/24 16:14:08 ---------------
+2020/12/24 16:14:08 ---------------
+2020/12/24 16:14:08 0:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:08 ---------------
+2020/12/24 16:14:08 ---------------
+2020/12/24 16:14:08 0:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:08 ---------------
+2020/12/24 16:14:08 0:reviced command=>
+2020/12/24 16:14:09 ---------------
+2020/12/24 16:14:09 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:09 ---------------
+2020/12/24 16:14:09 ---------------
+2020/12/24 16:14:09 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:09 ---------------
+2020/12/24 16:14:09 ---------------
+2020/12/24 16:14:09 0:=>Term:1;LC:3;PreTerm:1;PreIndex:4
+=>
+2020/12/24 16:14:09 ---------------
+2020/12/24 16:14:09 ---------------
+2020/12/24 16:14:09 0:=>Term:1;LC:3;PreTerm:1;PreIndex:4
+=>
+2020/12/24 16:14:09 ---------------
+2020/12/24 16:14:09 2:failed term 1 index 3
+2020/12/24 16:14:09 1:failed term 1 index 3
+2020/12/24 16:14:09 ---------------
+2020/12/24 16:14:09 0:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>1,
+2020/12/24 16:14:09 ---------------
+2020/12/24 16:14:09 ---------------
+2020/12/24 16:14:09 0:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>1,
+2020/12/24 16:14:09 ---------------
+2020/12/24 16:14:09 2 Be Appened :Log is now ->
+2020/12/24 16:14:09 1 Be Appened :Log is now ->
+2020/12/24 16:14:09 ---------------
+2020/12/24 16:14:09 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:09 ---------------
+2020/12/24 16:14:09 ---------------
+2020/12/24 16:14:09 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:09 ---------------
+2020/12/24 16:14:10 ---------------
+2020/12/24 16:14:10 0:=>Term:1;LC:4;PreTerm:1;PreIndex:4
+=>
+2020/12/24 16:14:10 ---------------
+2020/12/24 16:14:10 ---------------
+2020/12/24 16:14:10 0:=>Term:1;LC:4;PreTerm:1;PreIndex:4
+=>
+2020/12/24 16:14:10 ---------------
+2020/12/24 16:14:10 0:reviced command=>
+2020/12/24 16:14:10 ---------------
+2020/12/24 16:14:10 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:10 ---------------
+2020/12/24 16:14:10 ---------------
+2020/12/24 16:14:10 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:10 ---------------
+2020/12/24 16:14:10 ---------------
+2020/12/24 16:14:10 0:=>Term:1;LC:4;PreTerm:1;PreIndex:5
+=>
+2020/12/24 16:14:10 ---------------
+2020/12/24 16:14:10 2:failed term 1 index 4
+2020/12/24 16:14:10 ---------------
+2020/12/24 16:14:10 0:=>Term:1;LC:4;PreTerm:1;PreIndex:4
+=>1,
+2020/12/24 16:14:10 ---------------
+2020/12/24 16:14:10 2 Be Appened :Log is now ->
+2020/12/24 16:14:10 ---------------
+2020/12/24 16:14:10 0:=>Term:1;LC:5;PreTerm:1;PreIndex:5
+=>
+2020/12/24 16:14:10 ---------------
+2020/12/24 16:14:10 1:failed term 1 index 4
+2020/12/24 16:14:10 ---------------
+2020/12/24 16:14:10 0:=>Term:1;LC:5;PreTerm:1;PreIndex:4
+=>1,
+2020/12/24 16:14:10 ---------------
+2020/12/24 16:14:10 1 Be Appened :Log is now ->
+2020/12/24 16:14:11 ---------------
+2020/12/24 16:14:11 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:11 ---------------
+2020/12/24 16:14:11 ---------------
+2020/12/24 16:14:11 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:11 ---------------
+2020/12/24 16:14:11 ---------------
+2020/12/24 16:14:11 0:=>Term:1;LC:5;PreTerm:1;PreIndex:5
+=>
+2020/12/24 16:14:11 ---------------
+2020/12/24 16:14:11 ---------------
+2020/12/24 16:14:11 0:=>Term:1;LC:5;PreTerm:1;PreIndex:5
+=>
+2020/12/24 16:14:11 ---------------
+2020/12/24 16:14:11 0:reviced command=>
+2020/12/24 16:14:11 ---------------
+2020/12/24 16:14:11 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:11 ---------------
+2020/12/24 16:14:11 ---------------
+2020/12/24 16:14:11 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:11 ---------------
+2020/12/24 16:14:11 ---------------
+2020/12/24 16:14:11 0:=>Term:1;LC:5;PreTerm:1;PreIndex:6
+=>
+2020/12/24 16:14:11 ---------------
+2020/12/24 16:14:11 2:failed term 1 index 5
+2020/12/24 16:14:11 ---------------
+2020/12/24 16:14:11 0:=>Term:1;LC:5;PreTerm:1;PreIndex:6
+=>
+2020/12/24 16:14:11 ---------------
+2020/12/24 16:14:11 ---------------
+2020/12/24 16:14:11 0:=>Term:1;LC:5;PreTerm:1;PreIndex:5
+=>1,
+2020/12/24 16:14:11 ---------------
+2020/12/24 16:14:11 1:failed term 1 index 5
+2020/12/24 16:14:11 2 Be Appened :Log is now ->
+2020/12/24 16:14:11 ---------------
+2020/12/24 16:14:11 0:=>Term:1;LC:5;PreTerm:1;PreIndex:5
+=>1,
+2020/12/24 16:14:11 ---------------
+2020/12/24 16:14:11 1 Be Appened :Log is now ->
+2020/12/24 16:14:12 ---------------
+2020/12/24 16:14:12 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:12 ---------------
+2020/12/24 16:14:12 ---------------
+2020/12/24 16:14:12 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:12 ---------------
+2020/12/24 16:14:12 ---------------
+2020/12/24 16:14:12 ---------------
+2020/12/24 16:14:12 0:=>Term:1;LC:6;PreTerm:1;PreIndex:6
+=>
+2020/12/24 16:14:12 ---------------
+2020/12/24 16:14:12 0:=>Term:1;LC:6;PreTerm:1;PreIndex:6
+=>
+2020/12/24 16:14:12 ---------------
+2020/12/24 16:14:12 0:reviced command=>
+2020/12/24 16:14:12 ---------------
+2020/12/24 16:14:12 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:12 ---------------
+2020/12/24 16:14:12 ---------------
+2020/12/24 16:14:12 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:12 ---------------
+2020/12/24 16:14:13 ---------------
+2020/12/24 16:14:13 0:=>Term:1;LC:6;PreTerm:1;PreIndex:7
+=>
+2020/12/24 16:14:13 ---------------
+2020/12/24 16:14:13 ---------------
+2020/12/24 16:14:13 0:=>Term:1;LC:6;PreTerm:1;PreIndex:7
+=>
+2020/12/24 16:14:13 ---------------
+2020/12/24 16:14:13 1:failed term 1 index 6
+2020/12/24 16:14:13 ---------------
+2020/12/24 16:14:13 0:=>Term:1;LC:6;PreTerm:1;PreIndex:6
+=>1,
+2020/12/24 16:14:13 ---------------
+2020/12/24 16:14:13 1 Be Appened :Log is now ->
+2020/12/24 16:14:13 2:failed term 1 index 6
+2020/12/24 16:14:13 ---------------
+2020/12/24 16:14:13 0:=>Term:1;LC:7;PreTerm:1;PreIndex:6
+=>1,
+2020/12/24 16:14:13 ---------------
+2020/12/24 16:14:13 2 Be Appened :Log is now ->
+2020/12/24 16:14:13 ---------------
+2020/12/24 16:14:13 ---------------
+2020/12/24 16:14:13 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:13 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:13 ---------------
+2020/12/24 16:14:13 ---------------
+2020/12/24 16:14:13 ---------------
+2020/12/24 16:14:13 0:=>Term:1;LC:7;PreTerm:1;PreIndex:7
+=>
+2020/12/24 16:14:13 ---------------
+2020/12/24 16:14:13 ---------------
+2020/12/24 16:14:13 0:=>Term:1;LC:7;PreTerm:1;PreIndex:7
+=>
+2020/12/24 16:14:13 ---------------
+2020/12/24 16:14:13 0:reviced command=>
+2020/12/24 16:14:14 ---------------
+2020/12/24 16:14:14 ---------------
+2020/12/24 16:14:14 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:14 ---------------
+2020/12/24 16:14:14 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:14 ---------------
+2020/12/24 16:14:14 ---------------
+2020/12/24 16:14:14 0:=>Term:1;LC:7;PreTerm:1;PreIndex:8
+=>
+2020/12/24 16:14:14 ---------------
+2020/12/24 16:14:14 ---------------
+2020/12/24 16:14:14 0:=>Term:1;LC:7;PreTerm:1;PreIndex:8
+=>
+2020/12/24 16:14:14 ---------------
+2020/12/24 16:14:14 1:failed term 1 index 7
+2020/12/24 16:14:14 2:failed term 1 index 7
+2020/12/24 16:14:14 ---------------
+2020/12/24 16:14:14 0:=>Term:1;LC:7;PreTerm:1;PreIndex:7
+=>1,
+2020/12/24 16:14:14 ---------------
+2020/12/24 16:14:14 ---------------
+2020/12/24 16:14:14 0:=>Term:1;LC:7;PreTerm:1;PreIndex:7
+=>1,
+2020/12/24 16:14:14 ---------------
+2020/12/24 16:14:14 1 Be Appened :Log is now ->
+2020/12/24 16:14:14 2 Be Appened :Log is now ->
+2020/12/24 16:14:14 ---------------
+2020/12/24 16:14:14 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:14 ---------------
+2020/12/24 16:14:14 ---------------
+2020/12/24 16:14:14 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:14 ---------------
+2020/12/24 16:14:14 ---------------
+2020/12/24 16:14:14 0:=>Term:1;LC:8;PreTerm:1;PreIndex:8
+=>
+2020/12/24 16:14:14 ---------------
+2020/12/24 16:14:14 ---------------
+2020/12/24 16:14:14 0:=>Term:1;LC:8;PreTerm:1;PreIndex:8
+=>
+2020/12/24 16:14:14 ---------------
+2020/12/24 16:14:14 0:reviced command=>
+2020/12/24 16:14:15 ---------------
+2020/12/24 16:14:15 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:15 ---------------
+2020/12/24 16:14:15 ---------------
+2020/12/24 16:14:15 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:15 ---------------
+2020/12/24 16:14:15 ---------------
+2020/12/24 16:14:15 0:=>Term:1;LC:8;PreTerm:1;PreIndex:9
+=>
+2020/12/24 16:14:15 ---------------
+2020/12/24 16:14:15 ---------------
+2020/12/24 16:14:15 0:=>Term:1;LC:8;PreTerm:1;PreIndex:9
+=>
+2020/12/24 16:14:15 ---------------
+2020/12/24 16:14:15 2:failed term 1 index 8
+2020/12/24 16:14:15 1:failed term 1 index 8
+2020/12/24 16:14:15 ---------------
+2020/12/24 16:14:15 0:=>Term:1;LC:8;PreTerm:1;PreIndex:8
+=>1,
+2020/12/24 16:14:15 ---------------
+2020/12/24 16:14:15 ---------------
+2020/12/24 16:14:15 0:=>Term:1;LC:8;PreTerm:1;PreIndex:8
+=>1,
+2020/12/24 16:14:15 ---------------
+2020/12/24 16:14:15 2 Be Appened :Log is now ->
+2020/12/24 16:14:15 1 Be Appened :Log is now ->
+2020/12/24 16:14:15 ---------------
+2020/12/24 16:14:15 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:15 ---------------
+2020/12/24 16:14:15 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:15 ---------------
+2020/12/24 16:14:15 ---------------
+2020/12/24 16:14:16 ---------------
+2020/12/24 16:14:16 0:=>Term:1;LC:9;PreTerm:1;PreIndex:9
+=>
+2020/12/24 16:14:16 ---------------
+2020/12/24 16:14:16 ---------------
+2020/12/24 16:14:16 0:=>Term:1;LC:9;PreTerm:1;PreIndex:9
+=>
+2020/12/24 16:14:16 ---------------
+2020/12/24 16:14:16 0:reviced command=>
+2020/12/24 16:14:16 ---------------
+2020/12/24 16:14:16 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:16 ---------------
+2020/12/24 16:14:16 ---------------
+2020/12/24 16:14:16 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:16 ---------------
+2020/12/24 16:14:16 ---------------
+2020/12/24 16:14:16 0:=>Term:1;LC:9;PreTerm:1;PreIndex:10
+=>
+2020/12/24 16:14:16 ---------------
+2020/12/24 16:14:16 2:failed term 1 index 9
+2020/12/24 16:14:16 ---------------
+2020/12/24 16:14:16 0:=>Term:1;LC:9;PreTerm:1;PreIndex:9
+=>1,
+2020/12/24 16:14:16 ---------------
+2020/12/24 16:14:16 2 Be Appened :Log is now ->
+2020/12/24 16:14:16 ---------------
+2020/12/24 16:14:16 0:=>Term:1;LC:9;PreTerm:1;PreIndex:10
+=>
+2020/12/24 16:14:16 ---------------
+2020/12/24 16:14:16 1:failed term 1 index 9
+2020/12/24 16:14:16 ---------------
+2020/12/24 16:14:16 0:=>Term:1;LC:10;PreTerm:1;PreIndex:9
+=>1,
+2020/12/24 16:14:16 ---------------
+2020/12/24 16:14:16 1 Be Appened :Log is now ->
+2020/12/24 16:14:17 ---------------
+2020/12/24 16:14:17 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:17 ---------------
+2020/12/24 16:14:17 ---------------
+2020/12/24 16:14:17 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:17 ---------------
+2020/12/24 16:14:17 ---------------
+2020/12/24 16:14:17 0:=>Term:1;LC:10;PreTerm:1;PreIndex:10
+=>
+2020/12/24 16:14:17 ---------------
+2020/12/24 16:14:17 ---------------
+2020/12/24 16:14:17 0:=>Term:1;LC:10;PreTerm:1;PreIndex:10
+=>
+2020/12/24 16:14:17 ---------------
+2020/12/24 16:14:17 0:reviced command=>
+2020/12/24 16:14:17 ---------------
+2020/12/24 16:14:17 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:17 ---------------
+2020/12/24 16:14:17 ---------------
+2020/12/24 16:14:17 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:17 ---------------
+2020/12/24 16:14:17 ---------------
+2020/12/24 16:14:17 0:=>Term:1;LC:10;PreTerm:1;PreIndex:11
+=>
+2020/12/24 16:14:17 ---------------
+2020/12/24 16:14:17 ---------------
+2020/12/24 16:14:17 0:=>Term:1;LC:10;PreTerm:1;PreIndex:11
+=>
+2020/12/24 16:14:17 ---------------
+2020/12/24 16:14:17 2:failed term 1 index 10
+2020/12/24 16:14:17 ---------------
+2020/12/24 16:14:17 1:failed term 1 index 10
+2020/12/24 16:14:17 ---------------
+2020/12/24 16:14:17 0:=>Term:1;LC:10;PreTerm:1;PreIndex:10
+=>1,
+2020/12/24 16:14:17 ---------------
+2020/12/24 16:14:17 0:=>Term:1;LC:10;PreTerm:1;PreIndex:10
+=>1,
+2020/12/24 16:14:17 ---------------
+2020/12/24 16:14:17 1 Be Appened :Log is now ->
+2020/12/24 16:14:17 2 Be Appened :Log is now ->
+2020/12/24 16:14:18 ---------------
+2020/12/24 16:14:18 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:18 ---------------
+2020/12/24 16:14:18 ---------------
+2020/12/24 16:14:18 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2020/12/24 16:14:19 ---------------
+2020/12/24 16:14:19 0:Now LeaderAND 0
+2020/12/24 16:14:19 ---------------
+2020/12/24 16:14:19 0:=>Term:1;LC:0;PreTerm:-1;PreIndex:0
+=>
+2020/12/24 16:14:19 ---------------
+2020/12/24 16:14:19 ---------------
+2020/12/24 16:14:19 0:=>Term:1;LC:0;PreTerm:-1;PreIndex:0
+=>
+2020/12/24 16:14:19 ---------------
+2020/12/24 16:14:19 0:reviced command=>
+2020/12/24 16:14:19 ---------------
+2020/12/24 16:14:19 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:19 ---------------
+2020/12/24 16:14:19 ---------------
+2020/12/24 16:14:19 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:19 ---------------
+2020/12/24 16:14:19 ---------------
+2020/12/24 16:14:19 ---------------
+2020/12/24 16:14:19 0:=>Term:1;LC:11;PreTerm:1;PreIndex:11
+=>
+2020/12/24 16:14:19 ---------------
+2020/12/24 16:14:19 0:=>Term:1;LC:11;PreTerm:1;PreIndex:11
+=>
+2020/12/24 16:14:19 ---------------
+2020/12/24 16:14:19 ---------------
+2020/12/24 16:14:19 0:=>Term:1;LC:0;PreTerm:1;PreIndex:1
+=>
+2020/12/24 16:14:19 ---------------
+2020/12/24 16:14:19 2:failed term -1 index 0
+2020/12/24 16:14:19 ---------------
+2020/12/24 16:14:19 0:=>Term:1;LC:0;PreTerm:-1;PreIndex:0
+=>1,
+2020/12/24 16:14:19 ---------------
+2020/12/24 16:14:19 2 Be Appened :Log is now ->
+2020/12/24 16:14:19 ---------------
+2020/12/24 16:14:19 0:=>Term:1;LC:0;PreTerm:1;PreIndex:1
+=>
+2020/12/24 16:14:19 ---------------
+2020/12/24 16:14:19 1:failed term -1 index 0
+2020/12/24 16:14:19 ---------------
+2020/12/24 16:14:19 0:=>Term:1;LC:1;PreTerm:-1;PreIndex:0
+=>1,
+2020/12/24 16:14:19 ---------------
+2020/12/24 16:14:19 1 Be Appened :Log is now ->
+2020/12/24 16:14:20 ---------------
+2020/12/24 16:14:20 ---------------
+2020/12/24 16:14:20 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:20 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:20 ---------------
+2020/12/24 16:14:20 ---------------
+2020/12/24 16:14:20 ---------------
+2020/12/24 16:14:20 0:=>Term:1;LC:11;PreTerm:1;PreIndex:11
+=>
+2020/12/24 16:14:20 ---------------
+2020/12/24 16:14:20 0:=>Term:1;LC:11;PreTerm:1;PreIndex:11
+=>
+2020/12/24 16:14:20 ---------------
+2020/12/24 16:14:20 ---------------
+2020/12/24 16:14:20 ---------------
+2020/12/24 16:14:20 0:=>Term:1;LC:1;PreTerm:1;PreIndex:1
+=>
+2020/12/24 16:14:20 ---------------
+2020/12/24 16:14:20 0:=>Term:1;LC:1;PreTerm:1;PreIndex:1
+=>
+2020/12/24 16:14:20 ---------------
+2020/12/24 16:14:20 ---------------
+2020/12/24 16:14:20 ---------------
+2020/12/24 16:14:20 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:20 ---------------
+2020/12/24 16:14:20 ---------------
+2020/12/24 16:14:20 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:20 ---------------
+2020/12/24 16:14:20 ---------------
+2020/12/24 16:14:20 0:=>Term:1;LC:11;PreTerm:1;PreIndex:11
+=>
+2020/12/24 16:14:20 ---------------
+2020/12/24 16:14:20 ---------------
+2020/12/24 16:14:20 0:=>Term:1;LC:11;PreTerm:1;PreIndex:11
+=>
+2020/12/24 16:14:20 ---------------
+2020/12/24 16:14:21 0:reviced command=>
+2020/12/24 16:14:21 ---------------
+2020/12/24 16:14:21 0:=>Term:1;LC:1;PreTerm:1;PreIndex:2
+=>
+2020/12/24 16:14:21 ---------------
+2020/12/24 16:14:21 ---------------
+2020/12/24 16:14:21 0:=>Term:1;LC:1;PreTerm:1;PreIndex:2
+=>
+2020/12/24 16:14:21 ---------------
+2020/12/24 16:14:21 2:failed term 1 index 1
+2020/12/24 16:14:21 ---------------
+2020/12/24 16:14:21 0:=>Term:1;LC:1;PreTerm:1;PreIndex:1
+=>1,
+2020/12/24 16:14:21 ---------------
+2020/12/24 16:14:21 2 Be Appened :Log is now ->
+2020/12/24 16:14:21 ---------------
+2020/12/24 16:14:21 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:21 ---------------
+2020/12/24 16:14:21 ---------------
+2020/12/24 16:14:21 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:21 ---------------
+2020/12/24 16:14:21 ---------------
+2020/12/24 16:14:21 0:=>Term:1;LC:11;PreTerm:1;PreIndex:11
+=>
+2020/12/24 16:14:21 ---------------
+2020/12/24 16:14:21 ---------------
+2020/12/24 16:14:21 0:=>Term:1;LC:11;PreTerm:1;PreIndex:11
+=>
+2020/12/24 16:14:21 ---------------
+2020/12/24 16:14:21 ---------------
+2020/12/24 16:14:21 0:=>Term:1;LC:2;PreTerm:1;PreIndex:2
+=>
+2020/12/24 16:14:21 ---------------
+2020/12/24 16:14:21 ---------------
+2020/12/24 16:14:21 0:=>Term:1;LC:2;PreTerm:1;PreIndex:2
+=>
+2020/12/24 16:14:21 ---------------
+2020/12/24 16:14:21 0:reviced command=>
+2020/12/24 16:14:21 ---------------
+2020/12/24 16:14:21 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:21 ---------------
+2020/12/24 16:14:21 ---------------
+2020/12/24 16:14:21 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:21 ---------------
+2020/12/24 16:14:22 ---------------
+2020/12/24 16:14:22 0:=>Term:1;LC:11;PreTerm:1;PreIndex:11
+=>
+2020/12/24 16:14:22 ---------------
+2020/12/24 16:14:22 0:=>Term:1;LC:11;PreTerm:1;PreIndex:11
+=>
+2020/12/24 16:14:22 ---------------
+2020/12/24 16:14:22 ---------------
+2020/12/24 16:14:22 ---------------
+2020/12/24 16:14:22 0:=>Term:1;LC:2;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:22 ---------------
+2020/12/24 16:14:22 2:failed term 1 index 2
+2020/12/24 16:14:22 ---------------
+2020/12/24 16:14:22 0:=>Term:1;LC:2;PreTerm:1;PreIndex:2
+=>1,
+2020/12/24 16:14:22 ---------------
+2020/12/24 16:14:22 2 Be Appened :Log is now ->
+2020/12/24 16:14:22 ---------------
+2020/12/24 16:14:22 0:=>Term:1;LC:2;PreTerm:1;PreIndex:3
+=>1,
+2020/12/24 16:14:22 ---------------
+2020/12/24 16:14:22 ---------------
+2020/12/24 16:14:22 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:22 ---------------
+2020/12/24 16:14:22 ---------------
+2020/12/24 16:14:22 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:22 ---------------
+2020/12/24 16:14:22 ---------------
+2020/12/24 16:14:22 0:=>Term:1;LC:11;PreTerm:1;PreIndex:11
+=>
+2020/12/24 16:14:22 ---------------
+2020/12/24 16:14:22 ---------------
+2020/12/24 16:14:22 0:=>Term:1;LC:11;PreTerm:1;PreIndex:11
+=>
+2020/12/24 16:14:22 ---------------
+2020/12/24 16:14:22 ---------------
+2020/12/24 16:14:22 0:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:22 ---------------
+2020/12/24 16:14:22 ---------------
+2020/12/24 16:14:22 0:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>1,
+2020/12/24 16:14:22 ---------------
+2020/12/24 16:14:23 ---------------
+2020/12/24 16:14:23 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:23 ---------------
+2020/12/24 16:14:23 ---------------
+2020/12/24 16:14:23 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:23 ---------------
+2020/12/24 16:14:23 ---------------
+2020/12/24 16:14:23 ---------------
+2020/12/24 16:14:23 0:=>Term:1;LC:11;PreTerm:1;PreIndex:11
+=>
+2020/12/24 16:14:23 ---------------
+2020/12/24 16:14:23 0:=>Term:1;LC:11;PreTerm:1;PreIndex:11
+=>
+2020/12/24 16:14:23 ---------------
+2020/12/24 16:14:23 ---------------
+2020/12/24 16:14:23 0:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:23 ---------------
+2020/12/24 16:14:23 ---------------
+2020/12/24 16:14:23 0:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>1,
+2020/12/24 16:14:23 ---------------
+2020/12/24 16:14:23 ---------------
+2020/12/24 16:14:23 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:23 ---------------
+2020/12/24 16:14:23 ---------------
+2020/12/24 16:14:23 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:23 ---------------
+2020/12/24 16:14:23 ---------------
+2020/12/24 16:14:23 0:=>Term:1;LC:11;PreTerm:1;PreIndex:11
+=>
+2020/12/24 16:14:23 ---------------
+2020/12/24 16:14:23 ---------------
+2020/12/24 16:14:23 0:=>Term:1;LC:11;PreTerm:1;PreIndex:11
+=>
+2020/12/24 16:14:23 ---------------
+2020/12/24 16:14:24 0:reviced command=>
+2020/12/24 16:14:24 ---------------
+2020/12/24 16:14:24 0:=>Term:1;LC:3;PreTerm:1;PreIndex:4
+=>
+2020/12/24 16:14:24 ---------------
+2020/12/24 16:14:24 0:=>Term:1;LC:3;PreTerm:1;PreIndex:4
+=>1,1,
+2020/12/24 16:14:24 ---------------
+2020/12/24 16:14:24 ---------------
+2020/12/24 16:14:24 2:failed term 1 index 3
+2020/12/24 16:14:24 ---------------
+2020/12/24 16:14:24 0:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>1,
+2020/12/24 16:14:24 ---------------
+2020/12/24 16:14:24 2 Be Appened :Log is now ->
+2020/12/24 16:14:24 ---------------
+2020/12/24 16:14:24 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:24 ---------------
+2020/12/24 16:14:24 ---------------
+2020/12/24 16:14:24 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:24 ---------------
+2020/12/24 16:14:24 ---------------
+2020/12/24 16:14:24 0:=>Term:1;LC:11;PreTerm:1;PreIndex:11
+=>
+2020/12/24 16:14:24 ---------------
+2020/12/24 16:14:24 ---------------
+2020/12/24 16:14:24 0:=>Term:1;LC:11;PreTerm:1;PreIndex:11
+=>
+2020/12/24 16:14:24 ---------------
+2020/12/24 16:14:24 ---------------
+2020/12/24 16:14:24 0:=>Term:1;LC:4;PreTerm:1;PreIndex:4
+=>
+2020/12/24 16:14:24 ---------------
+2020/12/24 16:14:24 ---------------
+2020/12/24 16:14:24 0:=>Term:1;LC:4;PreTerm:1;PreIndex:4
+=>1,1,
+2020/12/24 16:14:24 ---------------
+2020/12/24 16:14:24 0:reviced command=>
+2020/12/24 16:14:24 ---------------
+2020/12/24 16:14:24 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:24 ---------------
+2020/12/24 16:14:24 ---------------
+2020/12/24 16:14:24 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:24 ---------------
+2020/12/24 16:14:25 ---------------
+2020/12/24 16:14:25 0:=>Term:1;LC:11;PreTerm:1;PreIndex:11
+=>
+2020/12/24 16:14:25 ---------------
+2020/12/24 16:14:25 ---------------
+2020/12/24 16:14:25 0:=>Term:1;LC:11;PreTerm:1;PreIndex:11
+=>
+2020/12/24 16:14:25 ---------------
+2020/12/24 16:14:25 ---------------
+2020/12/24 16:14:25 ---------------
+2020/12/24 16:14:25 0:=>Term:1;LC:4;PreTerm:1;PreIndex:5
+=>1,1,1,
+2020/12/24 16:14:25 ---------------
+2020/12/24 16:14:25 0:=>Term:1;LC:4;PreTerm:1;PreIndex:5
+=>
+2020/12/24 16:14:25 ---------------
+2020/12/24 16:14:25 2:failed term 1 index 4
+2020/12/24 16:14:25 ---------------
+2020/12/24 16:14:25 0:=>Term:1;LC:4;PreTerm:1;PreIndex:4
+=>1,
+2020/12/24 16:14:25 ---------------
+2020/12/24 16:14:25 2 Be Appened :Log is now ->
+2020/12/24 16:14:25 ---------------
+2020/12/24 16:14:25 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:25 ---------------
+2020/12/24 16:14:25 ---------------
+2020/12/24 16:14:25 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:25 ---------------
+2020/12/24 16:14:25 ---------------
+2020/12/24 16:14:25 0:=>Term:1;LC:11;PreTerm:1;PreIndex:11
+=>
+2020/12/24 16:14:25 ---------------
+2020/12/24 16:14:25 0:=>Term:1;LC:11;PreTerm:1;PreIndex:11
+=>
+2020/12/24 16:14:25 ---------------
+2020/12/24 16:14:25 ---------------
+2020/12/24 16:14:26 ---------------
+2020/12/24 16:14:26 0:=>Term:1;LC:5;PreTerm:1;PreIndex:5
+=>1,1,1,
+2020/12/24 16:14:26 ---------------
+2020/12/24 16:14:26 0:=>Term:1;LC:5;PreTerm:1;PreIndex:5
+=>
+2020/12/24 16:14:26 ---------------
+2020/12/24 16:14:26 ---------------
+2020/12/24 16:14:26 0:reviced command=>
+2020/12/24 16:14:26 ---------------
+2020/12/24 16:14:26 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:26 ---------------
+2020/12/24 16:14:26 ---------------
+2020/12/24 16:14:26 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:26 ---------------
+2020/12/24 16:14:26 ---------------
+2020/12/24 16:14:26 0:=>Term:1;LC:11;PreTerm:1;PreIndex:11
+=>
+2020/12/24 16:14:26 ---------------
+2020/12/24 16:14:26 ---------------
+2020/12/24 16:14:26 0:=>Term:1;LC:11;PreTerm:1;PreIndex:11
+=>
+2020/12/24 16:14:26 ---------------
+2020/12/24 16:14:26 ---------------
+2020/12/24 16:14:26 0:=>Term:1;LC:5;PreTerm:1;PreIndex:6
+=>
+2020/12/24 16:14:26 ---------------
+2020/12/24 16:14:26 ---------------
+2020/12/24 16:14:26 0:=>Term:1;LC:5;PreTerm:1;PreIndex:6
+=>1,1,1,1,
+2020/12/24 16:14:26 ---------------
+2020/12/24 16:14:26 2:failed term 1 index 5
+2020/12/24 16:14:26 ---------------
+2020/12/24 16:14:26 0:=>Term:1;LC:5;PreTerm:1;PreIndex:5
+=>1,
+2020/12/24 16:14:26 ---------------
+2020/12/24 16:14:26 2 Be Appened :Log is now ->
+2020/12/24 16:14:26 ---------------
+2020/12/24 16:14:26 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:26 ---------------
+2020/12/24 16:14:26 ---------------
+2020/12/24 16:14:26 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:26 ---------------
+2020/12/24 16:14:26 ---------------
+2020/12/24 16:14:26 0:=>Term:1;LC:11;PreTerm:1;PreIndex:11
+=>
+2020/12/24 16:14:26 ---------------
+2020/12/24 16:14:26 ---------------
+2020/12/24 16:14:26 0:=>Term:1;LC:11;PreTerm:1;PreIndex:11
+=>
+2020/12/24 16:14:26 ---------------
+2020/12/24 16:14:27 ---------------
+2020/12/24 16:14:27 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:27 ---------------
+2020/12/24 16:14:27 ---------------
+2020/12/24 16:14:27 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:27 ---------------
+2020/12/24 16:14:27 ---------------
+2020/12/24 16:14:27 0:=>Term:1;LC:11;PreTerm:1;PreIndex:11
+=>
+2020/12/24 16:14:27 ---------------
+2020/12/24 16:14:27 ---------------
+2020/12/24 16:14:27 0:=>Term:1;LC:11;PreTerm:1;PreIndex:11
+=>
+2020/12/24 16:14:27 ---------------
+2020/12/24 16:14:27 ---------------
+2020/12/24 16:14:27 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:27 ---------------
+2020/12/24 16:14:27 ---------------
+2020/12/24 16:14:27 1:=>Term:1;LC:3;PreTerm:1;PreIndex:3
+=>
+2020/12/24 16:14:27 ---------------
+2020/12/24 16:14:27 0:Now LeaderAND 5
+2020/12/24 16:14:27 ---------------
+2020/12/24 16:14:27 0:=>Term:9;LC:5;PreTerm:1;PreIndex:6
+=>
+2020/12/24 16:14:27 ---------------
+2020/12/24 16:14:27 0:Now LeaderAND 5
+2020/12/24 16:14:27 ---------------
+2020/12/24 16:14:27 0:=>Term:9;LC:5;PreTerm:1;PreIndex:6
+=>
+2020/12/24 16:14:27 ---------------
+2020/12/24 16:14:27 1:failed term 1 index 1
+2020/12/24 16:14:27 ---------------
+2020/12/24 16:14:27 0:=>Term:9;LC:5;PreTerm:1;PreIndex:5
+=>
+2020/12/24 16:14:27 ---------------
+2020/12/24 16:14:27 1:failed term 1 index 1
+2020/12/24 16:14:27 ---------------
+2020/12/24 16:14:27 0:=>Term:9;LC:5;PreTerm:1;PreIndex:4
+=>1,
+2020/12/24 16:14:27 ---------------
+2020/12/24 16:14:27 1:failed term 1 index 1
+2020/12/24 16:14:27 ---------------
+2020/12/24 16:14:27 0:=>Term:9;LC:5;PreTerm:1;PreIndex:3
+=>1,1,
+2020/12/24 16:14:27 ---------------
+2020/12/24 16:14:27 1:failed term 1 index 1
+2020/12/24 16:14:27 ---------------
+2020/12/24 16:14:27 0:=>Term:9;LC:5;PreTerm:1;PreIndex:2
+=>1,1,1,
+2020/12/24 16:14:27 ---------------
+2020/12/24 16:14:27 1:failed term 1 index 1
+2020/12/24 16:14:27 ---------------
+2020/12/24 16:14:27 0:=>Term:9;LC:5;PreTerm:1;PreIndex:1
+=>1,1,1,1,
+2020/12/24 16:14:27 ---------------
+2020/12/24 16:14:27 1 Be Appened :Log is now ->
+2020/12/24 16:14:27 apply error: commit index=2 server=1 103 != server=2 102
+exit status 1
+FAIL	_/home/lehr/wsl/wa/6.824/src/raft	27.820s

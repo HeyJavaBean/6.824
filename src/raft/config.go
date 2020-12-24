@@ -370,6 +370,9 @@ func (cfg *config) nCommitted(index int) (int, interface{}) {
 		}
 
 		cfg.mu.Lock()
+		//fmt.Println("---------=============------------")
+		//fmt.Println(cfg.logs)
+		//fmt.Println("---------=============------------")
 		cmd1, ok := cfg.logs[i][index]
 		cfg.mu.Unlock()
 
