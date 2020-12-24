@@ -18,6 +18,7 @@ package raft
 //
 
 import (
+	"fmt"
 	"math/rand"
 	"sort"
 	"strconv"
@@ -235,6 +236,8 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 	reply.Term = rf.currentTerm
 	reply.VoteGranted = success
 
+
+
 }
 
 
@@ -267,7 +270,14 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 
 	//不匹配的情况，让别人回滚一条
 	if localLastIndex!=args.PrevLogIndex||localLastTerm!=args.PrevLogTerm{
-		DPrintf(strconv.Itoa(rf.me)+":failed"+" term "+strconv.Itoa(localLastTerm)+" index "+strconv.Itoa(localLastIndex))
+
+		fmt.Println("==================================")
+		fmt.Println(rf.me," Reply To ",args.LeaderId,"  Term: ",reply.Term,"  Success:",reply.Success)
+		fmt.Println(rf.me," info=>"," commitIdx:",rf.commitIndex," last Applied:",rf.lastApplied," Current Term:",rf.currentTerm)
+		fmt.Println("Log:",rf.log)
+		fmt.Println("==================================")
+
+
 		return
 	}
 
@@ -282,7 +292,7 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 		newLog = append(newLog,args.Entries...)
 		rf.log = newLog
 
-		DPrintf(strconv.Itoa(rf.me)+" Be Appened :Log is now ->")
+		fmt.Println("Client:",rf.me," Be Appened :Log is now ->",rf.log)
 	}
 
 	//修改提交
@@ -292,6 +302,12 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 		rf.updateLastApplied()
 	}
 
+
+	fmt.Println("==================================")
+	fmt.Println(rf.me," Reply To ",args.LeaderId,"  Term: ",reply.Term,"  Success:",reply.Success)
+	fmt.Println(rf.me," info=>"," commitIdx:",rf.commitIndex," last Applied:",rf.lastApplied," Current Term:",rf.currentTerm)
+	fmt.Println("Log:",rf.log)
+	fmt.Println("==================================")
 
 
 
@@ -357,14 +373,18 @@ func (rf *Raft) startAppendLog() {
 					}
 
 
-					DPrintf("---------------")
-					DPrintf(strconv.Itoa(rf.me)+":"+args.String())
-					DPrintf("---------------")
+
+					fmt.Println("==================================")
+					fmt.Println(rf.me," Send To ",idx,"\n",args.String())
+					fmt.Println(args.Entries)
+					fmt.Println("==================================")
 
 
 					reply := &AppendEntriesReply{}
 
 					ret := rf.sendAppendEntries(idx,&args,reply)
+
+
 
 
 					if !ret{
@@ -474,7 +494,11 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 
 		index = rf.getLastLogIndex()+1
 
-		DPrintf(strconv.Itoa(rf.me)+":reviced command=>")
+
+		fmt.Println("==================================")
+		fmt.Println(rf.me,"reviced command=>",command)
+		fmt.Println("==================================")
+
 
 		//todo
 		rf.log = append(rf.log, Log{
@@ -717,7 +741,8 @@ func (rf *Raft) beLeader() {
 	}
 
 
-	DPrintf(strconv.Itoa(rf.me)+":Now Leader"+" AND "+strconv.Itoa(rf.commitIndex))
+	fmt.Println("==========Now Leader Is ",rf.me,"==========")
+
 
 	//切换状态了
 	rf.state = LEADER
