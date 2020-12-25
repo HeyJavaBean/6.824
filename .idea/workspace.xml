@@ -24,8 +24,9 @@
   <component name="ChangeListManager">
     <list default="true" id="5a919722-7e7b-42e1-be2c-5240532dff04" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/raft/ooutput" beforeDir="false" afterPath="$PROJECT_DIR$/src/raft/ooutput" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/raft/output" beforeDir="false" afterPath="$PROJECT_DIR$/src/raft/output" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/raft/raft.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/raft/raft.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/raft/util.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/raft/util.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -161,11 +162,11 @@
     </state>
     <state x="732" y="1416" width="1085" height="1020" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.2460@0.0.2560.2460" timestamp="1604049719880" />
     <state x="750" y="1446" key="#com.intellij.execution.impl.EditConfigurationsDialog/332.1440.1920.1080/0.0.2560.1440@332.1440.1920.1080" timestamp="1603623077143" />
-    <state x="438" y="265" width="1034" height="516" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1608794333602">
+    <state x="438" y="265" width="1034" height="516" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1608881925104">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="438" y="260" width="1034" height="516" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1020@0.0.1920.1020" timestamp="1603935030719" />
-    <state x="438" y="265" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1608794333602" />
+    <state x="438" y="265" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1608881925104" />
     <state x="590" y="312" width="730" height="411" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog" timestamp="1605000605909">
       <screen x="0" y="0" width="1920" height="1020" />
     </state>

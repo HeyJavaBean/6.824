@@ -349,14 +349,16 @@ func (rf *Raft) startAppendLog() {
 						return
 					}
 
-					prevLogIndex := rf.getLastLogIndex()-offset
+					prevLogIndex := rf.commitIndex-offset
 					prevLogTerm := rf.log[prevLogIndex].Term
 
-					nextIndex := rf.nextIndex[idx]+1
+					nextIndex := rf.nextIndex[idx]
 
 					if nextIndex>len(rf.log){
 						nextIndex = len(rf.log)
 					}
+
+					fmt.Println("Master Next Idx for ",idx, " is ",rf.nextIndex[idx] )
 
 					args := AppendEntriesArgs{
 
@@ -386,6 +388,26 @@ func (rf *Raft) startAppendLog() {
 
 
 
+					//
+					//0       1       2       3       4       5       6
+					//Master
+					//
+					//[{-1 nil} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]
+					//
+					//Follower 1
+					//
+					//[{-1 nil} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]
+					//
+					//Follower 2
+					//
+					//[{-1 nil} {1 101}]
+
+
+
+
+
+
+
 
 					if !ret{
 						return
@@ -404,6 +426,8 @@ func (rf *Raft) startAppendLog() {
 						return
 					}else{
 						//fixme
+
+
 						if rf.nextIndex[idx]>0{
 							rf.nextIndex[idx]--
 						}
@@ -752,6 +776,6 @@ func (rf *Raft) beLeader() {
 	rf.matchIndex = make([]int, len(rf.peers))
 	for i := 0; i < len(rf.nextIndex); i++ {
 		rf.nextIndex[i] = rf.getLastLogIndex() + 1
-
 	}
+	fmt.Println("======Next Index Init======>",rf.getLastLogIndex() + 1)
 }
