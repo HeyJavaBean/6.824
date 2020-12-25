@@ -1,71 +1,8 @@
 Test (2B): no agreement if too many followers disconnect ...
 ==========Now Leader Is  0 ==========
-======Next Index Init======> 1
-Master Next Idx for  4  is  1
-==================================
-Master Next Idx for  1  is  1
-==================================
-0  Send To  1 
- =>Term:1;LC:0;PreTerm:-1;PreIndex:0
-=>
-[]
-==================================
-==========Now Leader Is  0 ==========
-======Next Index Init======> 1
-Master Next Idx for  3  is  1
-==================================
-0  Send To  3 
- =>Term:1;LC:0;PreTerm:-1;PreIndex:0
-=>
-[]
-==================================
-==================================
-1  Reply To  0   Term:  1   Success: true
-1  info=>  commitIdx: 0  last Applied: 0  Current Term: 1
-==================================
-Log: [{-1 <nil>}]
-==================================
-Master Next Idx for  2  is  1
-==================================
-0  Send To  2 
- =>Term:1;LC:0;PreTerm:-1;PreIndex:0
-=>
-[]
-==================================
-==================================
-2  Reply To  0   Term:  1   Success: true
-2  info=>  commitIdx: 0  last Applied: 0  Current Term: 1
-Log: [{-1 <nil>}]
-==================================
-3  Reply To  0   Term:  1   Success: true
-3  info=>  commitIdx: 0  last Applied: 0  Current Term: 1
-0  Send To  4 
- =>Term:1;LC:0;PreTerm:-1;PreIndex:0
-=>
-[]
-==================================
-==================================
-4  Reply To  0   Term:  1   Success: true
-4  info=>  commitIdx: 0  last Applied: 0  Current Term: 1
-Log: [{-1 <nil>}]
-==================================
-Log: [{-1 <nil>}]
-==================================
-==================================
 0 reviced command=> 10
 ==================================
-Master Next Idx for  4  is  1
-==================================
-Master Next Idx for  2  is  1
-==================================
 0  Send To  2 
- =>Term:1;LC:0;PreTerm:-1;PreIndex:0
-=>1,
-[{1 10}]
-==================================
-Master Next Idx for  3  is  1
-==================================
-0  Send To  3 
  =>Term:1;LC:0;PreTerm:-1;PreIndex:0
 =>1,
 [{1 10}]
@@ -76,12 +13,18 @@ Client: 2  Be Appened :Log is now -> [{-1 <nil>} {1 10}]
 2  info=>  commitIdx: 0  last Applied: 0  Current Term: 1
 Log: [{-1 <nil>} {1 10}]
 ==================================
+0  Send To  3
+ =>Term:1;LC:0;PreTerm:-1;PreIndex:0
+=>1,
+[{1 10}]
+==================================
 Client: 3  Be Appened :Log is now -> [{-1 <nil>} {1 10}]
 ==================================
 3  Reply To  0   Term:  1   Success: true
 3  info=>  commitIdx: 0  last Applied: 0  Current Term: 1
 Log: [{-1 <nil>} {1 10}]
 ==================================
+
 Master Next Idx for  1  is  1
 ==================================
 0  Send To  1 
