@@ -24,8 +24,6 @@
   <component name="ChangeListManager">
     <list default="true" id="5a919722-7e7b-42e1-be2c-5240532dff04" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/raft/ooutput" beforeDir="false" afterPath="$PROJECT_DIR$/src/raft/ooutput" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/raft/output" beforeDir="false" afterPath="$PROJECT_DIR$/src/raft/output" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/raft/raft.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/raft/raft.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -116,11 +114,11 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Go Build.go build test.go" />
       <item itemvalue="Go Build.go build mrmaster.go" />
       <item itemvalue="Go Build.go build mrsequential.go" />
-      <item itemvalue="Go Build.go build test.go" />
-      <item itemvalue="Go Test.TestBasicAgree2B in raft" />
       <item itemvalue="Go Test.TestInitialElection2A in test_test.go" />
+      <item itemvalue="Go Test.TestBasicAgree2B in raft" />
     </list>
     <recent_temporary>
       <list>

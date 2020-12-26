@@ -234,7 +234,8 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 
 	reply.Term = rf.currentTerm
 	reply.VoteGranted = success
-
+	//
+	//fmt.Println(rf.me,": i vote for ",args.CandidateId)
 
 
 }
@@ -298,13 +299,13 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 		rf.updateLastApplied()
 	}
 
-
+	//
 	//fmt.Println("==================================")
 	//fmt.Println(rf.me," Reply To ",args.LeaderId,"  Term: ",reply.Term,"  Success:",reply.Success)
 	//fmt.Println(rf.me," info=>"," commitIdx:",rf.commitIndex," last Applied:",rf.lastApplied," Current Term:",rf.currentTerm)
 	//fmt.Println("Log:",rf.log)
 	//fmt.Println("==================================")
-
+	//
 
 
 }
@@ -337,7 +338,7 @@ func (rf *Raft) startAppendLog() {
 		if i!=rf.me{
 			go func(idx int){
 				//一直需要去同步核对节点?
-				offset :=0
+
 				for {
 					//这里他发送的时候又去检测了一下本机是不是leader
 					//这种边界检查真的很多很多....
@@ -375,13 +376,13 @@ func (rf *Raft) startAppendLog() {
 					}
 
 
-
+					//
 					//fmt.Println("==================================")
 					//fmt.Println(rf.me," Send To ",idx,"\n",args.String())
 					//fmt.Println(args.Entries)
 					//fmt.Println("Server:",rf.log)
 					//fmt.Println("==================================")
-
+					//
 
 					reply := &AppendEntriesReply{}
 
@@ -405,10 +406,12 @@ func (rf *Raft) startAppendLog() {
 
 
 					if !ret{
+						//fmt.Println("un connect!")
 						return
 					}
 
 					if reply.Term>rf.currentTerm{
+						//fmt.Println("be follower!")
 						rf.beFollower(reply.Term)
 						return
 					}
@@ -422,12 +425,29 @@ func (rf *Raft) startAppendLog() {
 					}else{
 						//fixme
 
+						//todo 这里做一个优化，如果当前日志不匹配了，那么直接回滚到term是上一次的情况??
 
-						if rf.nextIndex[idx]>0{
+						//if rf.nextIndex[idx]>0{
+						//	rf.nextIndex[idx]--
+						//}
+
+						//fmt.Println(idx," refused!")
+
+						failTerm := args.PrevLogTerm
+
+						rf.nextIndex[idx]--
+
+						for rf.log[rf.nextIndex[idx]].Term==failTerm{
 							rf.nextIndex[idx]--
 						}
-						offset++
-						//锁？
+
+						//边界处理
+						if rf.nextIndex[idx]<=0{
+							rf.nextIndex[idx]=1
+						}
+
+
+
 					}
 
 
@@ -610,7 +630,7 @@ func (rf *Raft) startUp() {
 	//fixme 很多地方都是需要加锁的！！！
 
 
-	heartbeatTime := time.Duration(100) * time.Millisecond
+	heartbeatTime := time.Duration(150) * time.Millisecond
 	for {
 
 		//根据状态判断该干什么
@@ -625,7 +645,7 @@ func (rf *Raft) startUp() {
 			//如果收到master的心跳
 			case <-rf.appendLogCh:
 
-			case <-time.After(time.Duration(rand.Intn(100)+200) * time.Millisecond):
+			case <-time.After(time.Duration(rand.Intn(300)+150) * time.Millisecond):
 
 				rf.beCandidate()
 			}
@@ -724,15 +744,10 @@ func (rf *Raft) getLastLogTerm() int {
 
 func (rf *Raft) getLastLogIndex() int {
 
-	//if len(rf.log)==1{
-	//	return 0
-	//}
-	//
 	return len(rf.log) - 1
 
 }
 
-//todo ？？？？？
 func send(ch chan bool) {
 	select {
 	case <-ch:
@@ -772,5 +787,4 @@ func (rf *Raft) beLeader() {
 	for i := 0; i < len(rf.nextIndex); i++ {
 		rf.nextIndex[i] = rf.getLastLogIndex() + 1
 	}
-	////fmt.Println("======Next Index Init======>",rf.getLastLogIndex() + 1)
 }
