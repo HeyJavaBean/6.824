@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Test (2B): agreement despite follower disconnection ...
 ==========Now Leader Is  1 ==========
 ==================================
@@ -167,11 +168,20 @@ Server: [{-1 <nil>} {1 101} {1 102} {1 103}]
 ==================================
 1  Send To  0 
  =>Term:1;LC:3;PreTerm:1;PreIndex:3
+=======
+Test (2B): no agreement if too many followers disconnect ...
+==========Now Leader Is  0 ==========
+0 reviced command=> 20
+==================================
+0  Send To  2 
+ =>Term:1;LC:1;PreTerm:1;PreIndex:1
+>>>>>>> 0fd7b8058fb8f296ece6ff9a9d5fc0d9961f271b
 =>
 []
 Server: [{-1 <nil>} {1 101} {1 102} {1 103}]
 ==================================
 ==================================
+<<<<<<< HEAD
 0  Reply To  1   Term:  1   Success: true
 0  info=>  commitIdx: 3  last Applied: 3  Current Term: 1
 Log: [{-1 <nil>} {1 101} {1 102} {1 103}]
@@ -189,6 +199,14 @@ Server: [{-1 <nil>} {1 101} {1 102} {1 103} {1 104}]
 ==================================
 1  Send To  0 
  =>Term:1;LC:3;PreTerm:1;PreIndex:3
+=======
+4  Reply To  0   Term:  1   Success: true
+4  info=>  commitIdx: 1  last Applied: 1  Current Term: 1
+Log: [{-1 <nil>} {1 10} {1 20}]
+==================================
+0  Send To  3 
+ =>Term:1;LC:1;PreTerm:1;PreIndex:1
+>>>>>>> 0fd7b8058fb8f296ece6ff9a9d5fc0d9961f271b
 =>1,
 [{1 104}]
 Server: [{-1 <nil>} {1 101} {1 102} {1 103} {1 104}]
@@ -280,6 +298,7 @@ Server: [{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]
 0  info=>  commitIdx: 5  last Applied: 5  Current Term: 1
 Log: [{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]
 ==================================
+<<<<<<< HEAD
 ==========Now Leader Is  1 ==========
 ==================================
 1  Send To  2 
@@ -296,14 +315,24 @@ Log: [{-1 <nil>} {1 101}]
 ==================================
 1  Send To  2 
  =>Term:9;LC:5;PreTerm:1;PreIndex:4
+=======
+0  Send To  4 
+ =>Term:1;LC:1;PreTerm:-1;PreIndex:0
+>>>>>>> 0fd7b8058fb8f296ece6ff9a9d5fc0d9961f271b
 =>1,
 [{1 106}]
 Server: [{-1 <nil>} {1 101} {1 102} {1 103} {1 104} {1 105} {1 106}]
 ==================================
+<<<<<<< HEAD
 ==================================
 2  Reply To  1   Term:  9   Success: false
 2  info=>  commitIdx: 1  last Applied: 1  Current Term: 9
 Log: [{-1 <nil>} {1 101}]
+=======
+4  Reply To  0   Term:  1   Success: false
+4  info=>  commitIdx: 1  last Applied: 1  Current Term: 1
+Log: [{-1 <nil>} {1 10} {1 20}]
+>>>>>>> 0fd7b8058fb8f296ece6ff9a9d5fc0d9961f271b
 ==================================
 ==================================
 1  Send To  2 
