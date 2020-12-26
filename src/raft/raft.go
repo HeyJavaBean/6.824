@@ -18,7 +18,6 @@ package raft
 //
 
 import (
-	"fmt"
 	"math/rand"
 	"sort"
 	"strconv"
@@ -265,18 +264,16 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 	}
 
 
-	localLastTerm :=  rf.getLastLogTerm()
-	localLastIndex := rf.getLastLogIndex()
 
-	//不匹配的情况，让别人回滚一条
-	if localLastIndex!=args.PrevLogIndex||localLastTerm!=args.PrevLogTerm{
 
-		fmt.Println("==================================")
-		fmt.Println(rf.me," Reply To ",args.LeaderId,"  Term: ",reply.Term,"  Success:",reply.Success)
-		fmt.Println(rf.me," info=>"," commitIdx:",rf.commitIndex," last Applied:",rf.lastApplied," Current Term:",rf.currentTerm)
-		fmt.Println("Log:",rf.log)
-		fmt.Println("==================================")
+	//超出了长度，必然不能同步
+	if args.PrevLogIndex >= len(rf.log) || rf.log[args.PrevLogIndex].Term != args.PrevLogTerm {
 
+		//fmt.Println("==================================")
+		//fmt.Println(rf.me, " Reply To ", args.LeaderId, "  Term: ", reply.Term, "  Success:", reply.Success)
+		//fmt.Println(rf.me, " info=>", " commitIdx:", rf.commitIndex, " last Applied:", rf.lastApplied, " Current Term:", rf.currentTerm)
+		//fmt.Println("Log:", rf.log)
+		//fmt.Println("==================================")
 
 		return
 	}
@@ -292,7 +289,6 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 		newLog = append(newLog,args.Entries...)
 		rf.log = newLog
 
-		fmt.Println("Client:",rf.me," Be Appened :Log is now ->",rf.log)
 	}
 
 	//修改提交
@@ -303,11 +299,11 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 	}
 
 
-	fmt.Println("==================================")
-	fmt.Println(rf.me," Reply To ",args.LeaderId,"  Term: ",reply.Term,"  Success:",reply.Success)
-	fmt.Println(rf.me," info=>"," commitIdx:",rf.commitIndex," last Applied:",rf.lastApplied," Current Term:",rf.currentTerm)
-	fmt.Println("Log:",rf.log)
-	fmt.Println("==================================")
+	//fmt.Println("==================================")
+	//fmt.Println(rf.me," Reply To ",args.LeaderId,"  Term: ",reply.Term,"  Success:",reply.Success)
+	//fmt.Println(rf.me," info=>"," commitIdx:",rf.commitIndex," last Applied:",rf.lastApplied," Current Term:",rf.currentTerm)
+	//fmt.Println("Log:",rf.log)
+	//fmt.Println("==================================")
 
 
 
@@ -349,16 +345,20 @@ func (rf *Raft) startAppendLog() {
 						return
 					}
 
-					prevLogIndex := rf.commitIndex-offset
-					prevLogTerm := rf.log[prevLogIndex].Term
-
 					nextIndex := rf.nextIndex[idx]
 
 					if nextIndex>len(rf.log){
 						nextIndex = len(rf.log)
 					}
 
-					fmt.Println("Master Next Idx for ",idx, " is ",rf.nextIndex[idx] )
+
+
+					prevLogIndex := rf.nextIndex[idx]-1
+					////fmt.Println("=!=!=prevLog Indx:",prevLogIndex," +=>offset:",offset)
+					prevLogTerm := rf.log[prevLogIndex].Term
+
+
+					////fmt.Println("Master Next Idx for ",idx, " is ",rf.nextIndex[idx] )
 
 					args := AppendEntriesArgs{
 
@@ -376,10 +376,11 @@ func (rf *Raft) startAppendLog() {
 
 
 
-					fmt.Println("==================================")
-					fmt.Println(rf.me," Send To ",idx,"\n",args.String())
-					fmt.Println(args.Entries)
-					fmt.Println("==================================")
+					//fmt.Println("==================================")
+					//fmt.Println(rf.me," Send To ",idx,"\n",args.String())
+					//fmt.Println(args.Entries)
+					//fmt.Println("Server:",rf.log)
+					//fmt.Println("==================================")
 
 
 					reply := &AppendEntriesReply{}
@@ -401,12 +402,6 @@ func (rf *Raft) startAppendLog() {
 					//Follower 2
 					//
 					//[{-1 nil} {1 101}]
-
-
-
-
-
-
 
 
 					if !ret{
@@ -519,9 +514,9 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 		index = rf.getLastLogIndex()+1
 
 
-		fmt.Println("==================================")
-		fmt.Println(rf.me,"reviced command=>",command)
-		fmt.Println("==================================")
+		//fmt.Println("==================================")
+		//fmt.Println(rf.me,"reviced command=>",command)
+		//fmt.Println("==================================")
 
 
 		//todo
@@ -615,7 +610,7 @@ func (rf *Raft) startUp() {
 	//fixme 很多地方都是需要加锁的！！！
 
 
-	heartbeatTime := time.Duration(600) * time.Millisecond
+	heartbeatTime := time.Duration(100) * time.Millisecond
 	for {
 
 		//根据状态判断该干什么
@@ -630,7 +625,7 @@ func (rf *Raft) startUp() {
 			//如果收到master的心跳
 			case <-rf.appendLogCh:
 
-			case <-time.After(time.Duration(rand.Intn(300)+700) * time.Millisecond):
+			case <-time.After(time.Duration(rand.Intn(100)+200) * time.Millisecond):
 
 				rf.beCandidate()
 			}
@@ -765,7 +760,7 @@ func (rf *Raft) beLeader() {
 	}
 
 
-	fmt.Println("==========Now Leader Is ",rf.me,"==========")
+	//fmt.Println("==========Now Leader Is ",rf.me,"==========")
 
 
 	//切换状态了
@@ -777,5 +772,5 @@ func (rf *Raft) beLeader() {
 	for i := 0; i < len(rf.nextIndex); i++ {
 		rf.nextIndex[i] = rf.getLastLogIndex() + 1
 	}
-	fmt.Println("======Next Index Init======>",rf.getLastLogIndex() + 1)
+	////fmt.Println("======Next Index Init======>",rf.getLastLogIndex() + 1)
 }
