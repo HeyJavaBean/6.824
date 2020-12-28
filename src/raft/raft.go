@@ -78,6 +78,7 @@ type AppendEntriesArgs struct {
 type AppendEntriesReply struct {
 	Term    int
 	Success bool
+	ConflictTerm int
 }
 
 func (rf *Raft) GetState() (int, bool) {
@@ -122,11 +123,14 @@ func (rf *Raft) readPersist(data []byte) {
 	if d.Decode(&currentTerm) != nil ||
 	   d.Decode(&voteFor) != nil ||
 		d.Decode(&log) != nil{
+
 	} else {
 		rf.mu.Lock()
+
 		rf.currentTerm = currentTerm
 		rf.voteFor = voteFor
 		rf.log = log
+
 		rf.mu.Unlock()
 	}
 }
@@ -218,6 +222,7 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 	}
 	reply.Term = currentTerm
 
+	//不能胜任领导人的情况
 	if args.Term < currentTerm {
 
 		//fmt.Println("==================================")
@@ -232,7 +237,12 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 	}
 
 	//超出了长度，必然不能同步
-	if args.PrevLogIndex >= len(log) || log[args.PrevLogIndex].Term != args.PrevLogTerm {
+	if args.PrevLogIndex >= len(log){
+		return
+	}
+
+	//如果日志条目不匹配
+	if log[args.PrevLogIndex].Term != args.PrevLogTerm {
 
 		//fmt.Println("==================================")
 		//fmt.Println(rf.me, " Reply To ", args.LeaderId, "  Term: ", reply.Term, "  Success:", reply.Success)
@@ -240,6 +250,9 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 		//fmt.Println("Log:", rf.log)
 		//fmt.Println("==================================")
 		//fmt.Println("#",rf.me," ticked by ",args.LeaderId," and",reply.Success)
+
+		//让leader的日志可以快速回滚
+		reply.ConflictTerm = log[args.PrevLogIndex].Term
 
 		return
 	}
@@ -315,8 +328,6 @@ func (rf *Raft) startAppendLog() {
 				//一直需要去同步核对节点?
 
 				for {
-					//这里他发送的时候又去检测了一下本机是不是leader
-					//这种边界检查真的很多很多....
 
 					//fmt.Println("#",rf.me," gonna tick ",idx)
 
@@ -342,11 +353,10 @@ func (rf *Raft) startAppendLog() {
 
 
 
-					////fmt.Println("=!=!=prevLog Indx:",prevLogIndex," +=>offset:",offset)
+					//fmt.Println("=!=!=prevLog Indx:",prevLogIndex," +=>offset:",offset)
 
 
-
-					////fmt.Println("Master Next Idx for ",idx, " is ",rf.nextIndex[idx] )
+					//fmt.Println("Master Next Idx for ",idx, " is ",rf.nextIndex[idx] )
 
 					args := AppendEntriesArgs{
 						currentTerm,
@@ -416,16 +426,19 @@ func (rf *Raft) startAppendLog() {
 						return
 					}else{
 
-						failTerm := args.PrevLogTerm
+						//failTerm := args.PrevLogTerm
+
+						conflictTerm := reply.ConflictTerm
 
 						//fmt.Println("failed:\n",args,"\n",reply," ",reply.Term," vs ",rf.currentTerm)
 
 						rf.mu.Lock()
 
 						rf.nextIndex[idx]--
-						for rf.log[rf.nextIndex[idx]].Term==failTerm{
+						for rf.log[rf.nextIndex[idx]].Term>conflictTerm{
 							rf.nextIndex[idx]--
 						}
+
 						//边界处理
 						if rf.nextIndex[idx]<=0{
 							rf.nextIndex[idx]=1
@@ -621,8 +634,6 @@ func Make(peers []*labrpc.ClientEnd, me int,
 }
 
 func (rf *Raft) startUp() {
-
-
 
 	heartbeatTime := time.Duration(150) * time.Millisecond
 	for {
