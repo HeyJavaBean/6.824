@@ -1,0 +1,145 @@
+Test (2B): no agreement if too many followers disconnect ...
+  ... Passed --   3.8  5  192   32378    3
+PASS
+ok  	_/home/lehr/wsl/wa/6.824/src/raft	3.823s
+Test (2B): no agreement if too many followers disconnect ...
+  ... Passed --   8.3  5  471   77990    4
+PASS
+ok  	_/home/lehr/wsl/wa/6.824/src/raft	8.348s
+Test (2B): no agreement if too many followers disconnect ...
+  ... Passed --   4.4  5  223   38358    4
+PASS
+ok  	_/home/lehr/wsl/wa/6.824/src/raft	4.409s
+Test (2B): no agreement if too many followers disconnect ...
+  ... Passed --   5.3  5  275   46430    4
+PASS
+ok  	_/home/lehr/wsl/wa/6.824/src/raft	5.273s
+Test (2B): no agreement if too many followers disconnect ...
+  ... Passed --   4.8  5  251   41094    4
+PASS
+ok  	_/home/lehr/wsl/wa/6.824/src/raft	4.832s
+Test (2B): no agreement if too many followers disconnect ...
+  ... Passed --   4.8  5  257   43440    4
+PASS
+ok  	_/home/lehr/wsl/wa/6.824/src/raft	4.820s
+Test (2B): no agreement if too many followers disconnect ...
+  ... Passed --   5.8  5  310   52362    4
+PASS
+ok  	_/home/lehr/wsl/wa/6.824/src/raft	5.789s
+Test (2B): no agreement if too many followers disconnect ...
+  ... Passed --   3.8  5  176   30294    3
+PASS
+ok  	_/home/lehr/wsl/wa/6.824/src/raft	3.777s
+Test (2B): no agreement if too many followers disconnect ...
+  ... Passed --   4.2  5  207   36374    4
+PASS
+ok  	_/home/lehr/wsl/wa/6.824/src/raft	4.245s
+Test (2B): no agreement if too many followers disconnect ...
+  ... Passed --   5.8  5  315   52376    4
+PASS
+ok  	_/home/lehr/wsl/wa/6.824/src/raft	5.806s
+Test (2B): no agreement if too many followers disconnect ...
+  ... Passed --   4.4  5  204   35330    3
+PASS
+ok  	_/home/lehr/wsl/wa/6.824/src/raft	4.359s
+Test (2B): no agreement if too many followers disconnect ...
+  ... Passed --   4.3  5  231   38834    4
+PASS
+ok  	_/home/lehr/wsl/wa/6.824/src/raft	4.263s
+Test (2B): no agreement if too many followers disconnect ...
+  ... Passed --   4.3  5  223   37476    4
+PASS
+ok  	_/home/lehr/wsl/wa/6.824/src/raft	4.306s
+Test (2B): no agreement if too many followers disconnect ...
+  ... Passed --   6.2  5  323   53632    4
+PASS
+ok  	_/home/lehr/wsl/wa/6.824/src/raft	6.227s
+Test (2B): no agreement if too many followers disconnect ...
+  ... Passed --   5.7  5  315   52760    4
+PASS
+ok  	_/home/lehr/wsl/wa/6.824/src/raft	5.701s
+Test (2B): no agreement if too many followers disconnect ...
+--- FAIL: TestFailNoAgree2B (7.82s)
+    config.go:330: expected one leader, got none
+FAIL
+exit status 1
+FAIL	_/home/lehr/wsl/wa/6.824/src/raft	7.826s
+Test (2B): no agreement if too many followers disconnect ...
+--- FAIL: TestFailNoAgree2B (8.17s)
+    config.go:330: expected one leader, got none
+FAIL
+exit status 1
+FAIL	_/home/lehr/wsl/wa/6.824/src/raft	8.176s
+Test (2B): no agreement if too many followers disconnect ...
+  ... Passed --   3.9  5  193   32016    3
+PASS
+ok  	_/home/lehr/wsl/wa/6.824/src/raft	3.878s
+Test (2B): no agreement if too many followers disconnect ...
+  ... Passed --   5.1  5  291   47896    4
+PASS
+ok  	_/home/lehr/wsl/wa/6.824/src/raft	5.154s
+Test (2B): no agreement if too many followers disconnect ...
+  ... Passed --   6.1  5  267   50100    3
+PASS
+ok  	_/home/lehr/wsl/wa/6.824/src/raft	6.160s
+Test (2B): no agreement if too many followers disconnect ...
+  ... Passed --   4.2  5  223   36814    4
+PASS
+ok  	_/home/lehr/wsl/wa/6.824/src/raft	4.205s
+Test (2B): no agreement if too many followers disconnect ...
+  ... Passed --   4.1  5  202   34218    3
+PASS
+ok  	_/home/lehr/wsl/wa/6.824/src/raft	4.106s
+Test (2B): no agreement if too many followers disconnect ...
+--- FAIL: TestFailNoAgree2B (7.91s)
+    config.go:330: expected one leader, got none
+FAIL
+exit status 1
+FAIL	_/home/lehr/wsl/wa/6.824/src/raft	7.918s
+Test (2B): no agreement if too many followers disconnect ...
+--- FAIL: TestFailNoAgree2B (7.99s)
+    config.go:330: expected one leader, got none
+FAIL
+exit status 1
+FAIL	_/home/lehr/wsl/wa/6.824/src/raft	7.992s
+Test (2B): no agreement if too many followers disconnect ...
+  ... Passed --   6.7  5  387   63824    4
+PASS
+ok  	_/home/lehr/wsl/wa/6.824/src/raft	6.675s
+Test (2B): no agreement if too many followers disconnect ...
+  ... Passed --   5.3  5  272   46184    4
+PASS
+ok  	_/home/lehr/wsl/wa/6.824/src/raft	5.353s
+Test (2B): no agreement if too many followers disconnect ...
+  ... Passed --   4.3  5  211   35954    4
+PASS
+ok  	_/home/lehr/wsl/wa/6.824/src/raft	4.289s
+Test (2B): no agreement if too many followers disconnect ...
+  ... Passed --   6.3  5  329   54978    3
+PASS
+ok  	_/home/lehr/wsl/wa/6.824/src/raft	6.281s
+Test (2B): no agreement if too many followers disconnect ...
+  ... Passed --   6.9  5  356   59430    3
+PASS
+ok  	_/home/lehr/wsl/wa/6.824/src/raft	6.882s
+Test (2B): no agreement if too many followers disconnect ...
+  ... Passed --   4.8  5  236   39648    3
+PASS
+ok  	_/home/lehr/wsl/wa/6.824/src/raft	4.804s
+Test (2B): no agreement if too many followers disconnect ...
+  ... Passed --   4.2  5  204   34866    3
+PASS
+ok  	_/home/lehr/wsl/wa/6.824/src/raft	4.206s
+Test (2B): no agreement if too many followers disconnect ...
+  ... Passed --   3.7  5  183   31732    4
+PASS
+ok  	_/home/lehr/wsl/wa/6.824/src/raft	3.711s
+Test (2B): no agreement if too many followers disconnect ...
+  ... Passed --   5.4  5  261   44572    4
+PASS
+ok  	_/home/lehr/wsl/wa/6.824/src/raft	5.375s
+Test (2B): no agreement if too many followers disconnect ...
+  ... Passed --   7.8  5  416   69628    4
+PASS
+ok  	_/home/lehr/wsl/wa/6.824/src/raft	7.763s
+Test (2B): no agreement if too many followers disconnect ...

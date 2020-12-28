@@ -301,6 +301,7 @@ func (cfg *config) setlongreordering(longrel bool) {
 // try a few times in case re-elections are needed.
 func (cfg *config) checkOneLeader() int {
 	for iters := 0; iters < 10; iters++ {
+
 		ms := 450 + (rand.Int63() % 100)
 		time.Sleep(time.Duration(ms) * time.Millisecond)
 
@@ -370,9 +371,6 @@ func (cfg *config) nCommitted(index int) (int, interface{}) {
 		}
 
 		cfg.mu.Lock()
-		//fmt.Println("---------=============------------")
-		//fmt.Println(cfg.logs)
-		//fmt.Println("---------=============------------")
 		cmd1, ok := cfg.logs[i][index]
 		cfg.mu.Unlock()
 

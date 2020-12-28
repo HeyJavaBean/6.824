@@ -1,6 +1,5 @@
 package raft
 
-
 import (
 	"bytes"
 	"math/rand"
@@ -150,29 +149,42 @@ type RequestVoteReply struct {
 func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 
 	rf.mu.Lock()
-	defer rf.mu.Unlock()
 
+	currentTerm := rf.currentTerm
+	lastLogTerm := rf.getLastLogTerm()
+	lastLogIndex := rf.getLastLogIndex()
+	voteFor := rf.voteFor
+
+	rf.mu.Unlock()
 
 	success := false
 	//如果别人比他低一届，不行
-	if args.Term < rf.currentTerm {
+	if args.Term < currentTerm {
 		//如果他已经投过票了，也叭行
-	} else if rf.voteFor != NULL && rf.voteFor != args.CandidateId{
+	} else if voteFor != NULL && voteFor != args.CandidateId{
 		//如果别人记录的东西还没他的早，滚
-	} else if args.LastLogTerm < rf.getLastLogTerm(){
+	} else if args.LastLogTerm < lastLogTerm{
 		//如果别人的记录还没他多，那他leader也不用当了...
-	} else if args.LastLogTerm == rf.getLastLogTerm() && args.LastLogIndex < rf.getLastLogIndex() {
+	} else if args.LastLogTerm == lastLogTerm && args.LastLogIndex < lastLogIndex {
 
 	} else{
 		//变成那人的follower
+
+		rf.mu.Lock()
+
 		rf.voteFor = args.CandidateId
-		success = true
 		rf.state = FOLLOWER
 		rf.persist()
+
+		rf.mu.Unlock()
+
+		success = true
 		send(rf.voteCh)
+		//fmt.Println("#",rf.me," vote ",args.CandidateId)
+
 	}
 
-	reply.Term = rf.currentTerm
+	reply.Term = currentTerm
 	reply.VoteGranted = success
 
 }
@@ -186,30 +198,48 @@ func (rf *Raft) sendAppendEntries(server int, args *AppendEntriesArgs, reply *Ap
 
 //心跳接受方，需要同步日志
 func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply) {
+	//
+	//rf.mu.Lock()
+	//defer rf.mu.Unlock()
+	//
 
 	rf.mu.Lock()
-	defer rf.mu.Unlock()
 
+	currentTerm := rf.currentTerm
+	log := rf.log
+	commitIndex := rf.commitIndex
+
+	rf.mu.Unlock()
 
 	defer send(rf.appendLogCh)
 
-	if args.Term >= rf.currentTerm {
+	if args.Term >= currentTerm {
 		rf.beFollower(args.Term)
 	}
-	reply.Term = rf.currentTerm
+	reply.Term = currentTerm
 
-	if args.Term < rf.currentTerm {
+	if args.Term < currentTerm {
+
+		//fmt.Println("==================================")
+		//fmt.Println(args.Term)
+		//fmt.Println(rf.me," Reply To ",args.LeaderId,"  Term: ",reply.Term,"  Success:",reply.Success)
+		//fmt.Println(rf.me," info=>"," commitIdx:",rf.commitIndex," last Applied:",rf.lastApplied," Current Term:",rf.currentTerm)
+		//fmt.Println("Log:",rf.log)
+		//fmt.Println("==================================")
+		//fmt.Println("#",rf.me," ticked by ",args.LeaderId," and",reply.Success)
+
 		return
 	}
 
 	//超出了长度，必然不能同步
-	if args.PrevLogIndex >= len(rf.log) || rf.log[args.PrevLogIndex].Term != args.PrevLogTerm {
+	if args.PrevLogIndex >= len(log) || log[args.PrevLogIndex].Term != args.PrevLogTerm {
 
 		//fmt.Println("==================================")
 		//fmt.Println(rf.me, " Reply To ", args.LeaderId, "  Term: ", reply.Term, "  Success:", reply.Success)
 		//fmt.Println(rf.me, " info=>", " commitIdx:", rf.commitIndex, " last Applied:", rf.lastApplied, " Current Term:", rf.currentTerm)
 		//fmt.Println("Log:", rf.log)
 		//fmt.Println("==================================")
+		//fmt.Println("#",rf.me," ticked by ",args.LeaderId," and",reply.Success)
 
 		return
 	}
@@ -221,17 +251,26 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 	if len(args.Entries)>0{
 
 		newLog := []Log{}
-		newLog = append(newLog,rf.log[:args.PrevLogIndex+1]...)
+		newLog = append(newLog,log[:args.PrevLogIndex+1]...)
 		newLog = append(newLog,args.Entries...)
+
+		rf.mu.Lock()
+
 		rf.log = newLog
 		rf.persist()
+
+		rf.mu.Unlock()
 	}
 
 	//修改提交
-	if args.LeaderCommit > rf.commitIndex{
+	if args.LeaderCommit > commitIndex{
 		//commit变成可以提交的那个index
+		rf.mu.Lock()
+
 		rf.commitIndex = Min(args.LeaderCommit,len(rf.log)-1)
 		rf.updateLastApplied()
+
+		rf.mu.Unlock()
 	}
 
 	//
@@ -242,6 +281,7 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 	//fmt.Println("==================================")
 	//
 
+	//fmt.Println("#",rf.me," ticked by ",args.LeaderId," and",reply.Success)
 
 }
 
@@ -278,42 +318,45 @@ func (rf *Raft) startAppendLog() {
 					//这里他发送的时候又去检测了一下本机是不是leader
 					//这种边界检查真的很多很多....
 
+					//fmt.Println("#",rf.me," gonna tick ",idx)
+
 					rf.mu.Lock()
-					if rf.state!=LEADER{
-						rf.mu.Unlock()
+					state := rf.state
+					nextIndex := rf.nextIndex[idx]
+					logLen := len(rf.log)
+					prevLogIndex := rf.nextIndex[idx]-1
+					prevLogTerm := rf.log[prevLogIndex].Term
+					currentTerm := rf.currentTerm
+					entry := append([]Log{},rf.log[nextIndex:]...)
+					commitIndex := rf.commitIndex
+					rf.mu.Unlock()
+
+					if state!=LEADER{
 						return
 					}
-					rf.mu.Unlock()
 
-					rf.mu.Lock()
-					nextIndex := rf.nextIndex[idx]
-					rf.mu.Unlock()
 
-					if nextIndex>len(rf.log){
-						nextIndex = len(rf.log)
+					if nextIndex>logLen{
+						nextIndex = logLen
 					}
 
 
 
-					prevLogIndex := rf.nextIndex[idx]-1
 					////fmt.Println("=!=!=prevLog Indx:",prevLogIndex," +=>offset:",offset)
-					prevLogTerm := rf.log[prevLogIndex].Term
+
 
 
 					////fmt.Println("Master Next Idx for ",idx, " is ",rf.nextIndex[idx] )
 
 					args := AppendEntriesArgs{
-
-						rf.currentTerm,
+						currentTerm,
 						rf.me,
 
-
-						append([]Log{},rf.log[nextIndex:]...),
-						rf.commitIndex,
+						entry,
+						commitIndex,
 
 						prevLogIndex,
 						prevLogTerm,
-
 					}
 
 
@@ -350,8 +393,12 @@ func (rf *Raft) startAppendLog() {
 						return
 					}
 
-					if reply.Term>rf.currentTerm{
+
+					if reply.Term>currentTerm{
+						//rf.mu.Lock()
+						//fmt.Println("#",rf.me," now i have to follow them")
 						rf.beFollower(reply.Term)
+						//rf.mu.Unlock()
 						return
 					}
 
@@ -369,16 +416,16 @@ func (rf *Raft) startAppendLog() {
 						return
 					}else{
 
-						rf.mu.Lock()
-
 						failTerm := args.PrevLogTerm
 
-						rf.nextIndex[idx]--
+						//fmt.Println("failed:\n",args,"\n",reply," ",reply.Term," vs ",rf.currentTerm)
 
+						rf.mu.Lock()
+
+						rf.nextIndex[idx]--
 						for rf.log[rf.nextIndex[idx]].Term==failTerm{
 							rf.nextIndex[idx]--
 						}
-
 						//边界处理
 						if rf.nextIndex[idx]<=0{
 							rf.nextIndex[idx]=1
@@ -462,6 +509,10 @@ func (rf *Raft) sendRequestVote(server int, args *RequestVoteArgs, reply *Reques
 // the leader.
 //
 func (rf *Raft) Start(command interface{}) (int, int, bool) {
+
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
+
 	index := -1
 	term := rf.currentTerm
 	isLeader :=  rf.state==LEADER
@@ -609,6 +660,13 @@ func (rf *Raft) startUp() {
 //• Send RequestVote RPCs to all other servers
 //变为Candidate
 func (rf *Raft) beCandidate() {
+
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
+
+
+	//fmt.Println("#",rf.me,": be candidate")
+
 	//自己的状态
 	rf.state = CANDIDATE
 	//• Increment currentTerm
@@ -626,15 +684,20 @@ func (rf *Raft) beCandidate() {
 func (rf *Raft) startElection() {
 
 	//构造投票请求，也就是：我这届投票给我！
+	rf.mu.Lock()
 	args := RequestVoteArgs{
 		rf.currentTerm,
 		rf.me,
 		rf.getLastLogIndex(),
 		rf.getLastLogTerm(),
 	}
+	rf.mu.Unlock()
 
 	//代表自己收到的票数
 	var votes int32 = 1
+
+	//fmt.Println("#",rf.me," everybody please vote me!")
+
 
 	//开协程执行
 	for i := 0; i < len(rf.peers); i++ {
@@ -645,17 +708,31 @@ func (rf *Raft) startElection() {
 				reply := &RequestVoteReply{}
 				//让某个机子给自己投票
 				ret := rf.sendRequestVote(idx, &args, reply)
+
 				//如果对方成功响应了你
 				if ret {
+
+					rf.mu.Lock()
+					state := rf.state
+					currentTerm := rf.currentTerm
+					rf.mu.Unlock()
+
 					//如果已经被设置为其他状态了，那么就不用管了，别的协程里已经解决了
-					if rf.state != CANDIDATE {
+					if state != CANDIDATE {
+						//fmt.Println("#",idx," vote",rf.me,"but useless")
 						return
 					}
+					//rf.mu.Unlock()
+
 					//如果对方告诉你，他比你还大，那说明你out了，马上去当follower
 					//todo 当然我还有点没get这是哪种并发情况导致的这个
-					if reply.Term > rf.currentTerm {
+
+					//rf.mu.Lock()
+					if reply.Term > currentTerm {
 						rf.beFollower(reply.Term)
 					}
+					//rf.mu.Unlock()
+
 					//现在才去看投票结果
 					if reply.VoteGranted {
 						//这里考虑并发问题，票数增加
@@ -665,7 +742,9 @@ func (rf *Raft) startElection() {
 					//If votes received from majority of servers: become leader
 					//把检查票的部分直接加入到协程里每个地方去考虑了
 					if atomic.LoadInt32(&votes) > int32(len(rf.peers)/2) {
+						//rf.mu.Lock()
 						rf.beLeader()
+						//rf.mu.Unlock()
 						//确保自己不要卡在candidate 的 select那里 马上把心跳包发出去
 						send(rf.voteCh)
 					}
@@ -703,24 +782,31 @@ func send(ch chan bool) {
 
 //变成Follower
 func (rf *Raft) beFollower(term int) {
+
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
+
 	rf.state = FOLLOWER
 	rf.voteFor = NULL
 	rf.currentTerm = term
 	rf.persist()
+
 }
 
 //变成leader
 func (rf *Raft) beLeader() {
 
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
 
 	//emm非要合适下是不是CANDIDATE，因为可能竞争先变成Follower的情况
 	if rf.state != CANDIDATE {
 		return
 	}
 
+	//fmt.Println("#",rf.me," is now leader")
 
 	//fmt.Println("==========Now Leader Is ",rf.me,"==========")
-
 
 	//切换状态了
 	rf.state = LEADER
