@@ -8,7 +8,7 @@ package raft
 // test with the original before submitting.
 //
 
-import "../labrpc"
+import "mit6.824/labrpc"
 import "log"
 import "sync"
 import "testing"
@@ -328,6 +328,7 @@ func (cfg *config) checkOneLeader() int {
 			return leaders[lastTermWithLeader][0]
 		}
 	}
+	fmt.Println(cfg.rafts)
 	cfg.t.Fatalf("expected one leader, got none")
 	return -1
 }
