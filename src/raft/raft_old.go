@@ -419,7 +419,7 @@ package raft
 //
 //						rf.matchIndex[idx] = args.PrevLogIndex + len(args.Entries)
 //						rf.nextIndex[idx] = rf.matchIndex[idx] + 1
-//						rf.updateCommitIndex()
+//						rf.updateCommitIndexFollower(idx)
 //						rf.updateLastApplied()
 //
 //						rf.persist()

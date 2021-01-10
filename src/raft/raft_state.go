@@ -14,12 +14,12 @@ const (
 
 func (rf *Raft) beCandidate() {
 
-	rf.DPrint(string("from " + rf.state + " to be Candidate"))
+
+	rf.DPrintf(1,"from %v to be Candidate and Term is %v",rf.state,rf.getCurrentTerm()+1)
 
 	rf.setState(CANDIDATE)
 	rf.currentTermAdd()
-	rf.vote(rf.me,rf.getCurrentTerm())
-	rf.persist()
+	rf.vote(rf.me,rf.getCurrentTerm()+1)
 
 	go rf.askVotes()
 }
@@ -28,13 +28,16 @@ func (rf *Raft) beCandidate() {
 func (rf *Raft) beFollower(term int) {
 
 
-	rf.DPrint(string("from " + rf.state + " force to be Follower"))
+
+	if rf.isFollower(){
+		return
+	}
+
+	rf.DPrintf(1,"from %v force to be Follower",rf.state)
 
 	rf.setState(FOLLOWER)
 	rf.vote(NULL,rf.getCurrentTerm())
 	rf.setCurrentTerm(term)
-	rf.persist()
-	send(rf.voteCh)
 
 }
 
@@ -42,10 +45,9 @@ func (rf *Raft) beFollower(term int) {
 func (rf *Raft) followOther(leaderId,leaderTerm int) bool{
 
 	if rf.vote(leaderId,leaderTerm){
-		rf.DPrint(string("from " + rf.state + " agree to be Follower"))
+		rf.DPrintf(1,"from %v agree to be Follower",rf.state)
 		rf.setState(FOLLOWER)
 		rf.setCurrentTerm(leaderTerm)
-		rf.persist()
 		send(rf.voteCh)
 		return true
 	}
@@ -61,13 +63,11 @@ func (rf *Raft) beLeader() {
 		return
 	}
 
-	rf.DPrint(string("from " + rf.state + " to be Leader"))
-
+	rf.DPrintf(2,"from %v to be Leader",rf.state)
 
 	rf.setState(LEADER)
 	//(Reinitialized after election)
 	rf.leaderInit()
-	rf.persist()
 	//确保自己不要卡在candidate 的 select那里 马上把心跳包发出去
 	send(rf.voteCh)
 }

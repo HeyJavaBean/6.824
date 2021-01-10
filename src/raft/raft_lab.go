@@ -5,15 +5,7 @@ import (
 	"sync/atomic"
 )
 
-func (rf *Raft) Start(command interface{}) (int, int, bool) {
-	index := -1
-	term := -1
-	isLeader := true
 
-	// Your code here (2B).
-
-	return index, term, isLeader
-}
 
 
 func (rf *Raft) Kill() {
