@@ -20,7 +20,7 @@ func (rf *Raft) GetState() (int, bool) {
 
 func (rf *Raft) startUp() {
 
-	heartbeatTime := time.Duration(150) * time.Millisecond
+	heartbeatTime := time.Duration(100) * time.Millisecond
 	for {
 		switch rf.state {
 		case FOLLOWER, CANDIDATE:
@@ -29,8 +29,8 @@ func (rf *Raft) startUp() {
 
 			case <-rf.appendLogCh:
 
-			//case <-time.After(time.Duration(rand.Intn(300)+150) * time.Millisecond):
-			case <-time.After(time.Duration(rand.Intn(400)+400) * time.Millisecond):
+			case <-time.After(time.Duration(rand.Intn(300)+150) * time.Millisecond):
+			//case <-time.After(time.Duration(rand.Intn(400)+400) * time.Millisecond):
 				rf.beCandidate()
 			}
 		case LEADER:

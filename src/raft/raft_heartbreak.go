@@ -58,6 +58,7 @@ func (rf *Raft) doHeartBreak() {
 							rf.DPrintf(2, "from %v force to be Follower cuz Other is High",rf.getState())
 
 							lastIdx := Max(reply.ConflictIndex,rf.getCommitIndex())
+							lastIdx = Min(lastIdx,rf.lastLogIndex())
 							rf.setLog(rf.getLog()[:lastIdx+1])
 
 							rf.DPrintf(2, "now log shorten to %v",rf.getLog())

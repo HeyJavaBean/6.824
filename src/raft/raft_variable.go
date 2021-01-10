@@ -275,6 +275,12 @@ func (rf *Raft) updateCommitIndexLeader() {
 	copy(copyMatchIndex, rf.matchIndex)
 	sort.Sort(sort.Reverse(sort.IntSlice(copyMatchIndex)))
 	N := copyMatchIndex[len(copyMatchIndex)/2]
+	//fixme 一个迷之错误
+
+	if N>= len(rf.log){
+		N = len(rf.log)-1
+	}
+
 	if N > rf.commitIndex && rf.log[N].Term == rf.currentTerm {
 		rf.commitIndex = N
 	}
@@ -298,6 +304,9 @@ func (rf *Raft) nextIdxRollBack(idx,conflictTerm,conflictIndex int) {
 		rf.nextIndex[idx] = conflictIndex+1
 	}else{
 		rf.nextIndex[idx]--
+
+		//todo 小概率会有因为shorten了之后out of index的情况!
+
 		for rf.log[rf.nextIndex[idx]].Term > conflictTerm {
 			rf.nextIndex[idx]--
 		}
@@ -309,6 +318,6 @@ func (rf *Raft) nextIdxRollBack(idx,conflictTerm,conflictIndex int) {
 	}
 
 
-	rf.DPrintf(3, "Now leader for %v roll back to %v and term is %v",idx,rf.nextIndex[idx],rf.log[rf.nextIndex[idx]].Term)
+	//rf.DPrintf(3, "Now leader for %v roll back to %v and term is %v",idx,rf.nextIndex[idx],rf.log[rf.nextIndex[idx]].Term)
 
 }

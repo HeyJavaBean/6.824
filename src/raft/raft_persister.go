@@ -18,9 +18,14 @@ func (rf *Raft) persist() {
 		e.Encode(rf.log)
 		data := w.Bytes()
 		rf.persister.SaveRaftState(data)
+		rf.DPrintf(3,"data saved!")
 }
 
 func (rf *Raft) readPersist(data []byte) {
+
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
+
 	if data == nil || len(data) < 1 { // bootstrap without any state?
 		return
 	}
@@ -35,10 +40,12 @@ func (rf *Raft) readPersist(data []byte) {
 	if d.Decode(&currentTerm) != nil ||
 	   d.Decode(&voteFor) != nil ||
 		d.Decode(&log) != nil{
+		rf.DPrintf(3,"data recover failed!")
 	} else {
 		rf.currentTerm = currentTerm
 		rf.voteFor = voteFor
 		rf.log = log
+		rf.DPrintf(3,"data recover!")
 	}
 
 }

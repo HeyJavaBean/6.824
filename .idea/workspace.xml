@@ -23,19 +23,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5a919722-7e7b-42e1-be2c-5240532dff04" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/raft/raft_debug.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/raft/raft_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/raft/raft.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/raft/raft.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/raft/raft_heartbreak.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/raft/raft_heartbreak.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/raft/raft_lab.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/raft/raft_lab.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/raft/raft_old.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/raft/raft_old.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/raft/raft_persist.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/raft/raft_persist.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/raft/raft_state.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/raft/raft_state.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/raft/raft_persist.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/raft/raft_persister.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/raft/raft_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/raft/raft_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/raft/raft_variable.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/raft/raft_variable.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/raft/raft_vote.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/raft/raft_vote.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/raft/test_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/raft/test_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/raft/util.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/raft/util.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,21 +67,10 @@
     <property name="configurable.Project.GOPATH.is.expanded" value="true" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Aione6824" />
     <property name="settings.editor.selected.configurable" value="go.vgo" />
   </component>
-  <component name="RunManager" selected="Go Test.go test mit6.824/raft">
-    <configuration name="TestFailAgree2B in mit6.824/raft" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="6.824" />
-      <working_directory value="$PROJECT_DIR$/src/raft" />
-      <framework value="gotest" />
-      <kind value="PACKAGE" />
-      <package value="mit6.824/raft" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <pattern value="^\QTestFailAgree2B\E$" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Go Test.TestLab in mit6.824/raft">
     <configuration name="TestFailNoAgree2B in mit6.824/raft" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="6.824" />
       <working_directory value="$PROJECT_DIR$/src/raft" />
@@ -98,6 +80,17 @@
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
       <pattern value="^\QTestFailNoAgree2B\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestLab in mit6.824/raft" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="6.824" />
+      <working_directory value="$PROJECT_DIR$/src/raft" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="mit6.824/raft" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <pattern value="^\QTestLab\E$" />
       <method v="2" />
     </configuration>
     <configuration name="TestPersist12C in mit6.824/raft" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
@@ -134,18 +127,18 @@
     </configuration>
     <list>
       <item itemvalue="Go Test.go test mit6.824/raft" />
-      <item itemvalue="Go Test.TestFailAgree2B in mit6.824/raft" />
       <item itemvalue="Go Test.TestFailNoAgree2B in mit6.824/raft" />
       <item itemvalue="Go Test.TestPersist12C in mit6.824/raft" />
       <item itemvalue="Go Test.TestPersist22C in mit6.824/raft" />
+      <item itemvalue="Go Test.TestLab in mit6.824/raft" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Test.go test mit6.824/raft" />
+        <item itemvalue="Go Test.TestLab in mit6.824/raft" />
         <item itemvalue="Go Test.TestPersist22C in mit6.824/raft" />
+        <item itemvalue="Go Test.go test mit6.824/raft" />
         <item itemvalue="Go Test.TestPersist12C in mit6.824/raft" />
         <item itemvalue="Go Test.TestFailNoAgree2B in mit6.824/raft" />
-        <item itemvalue="Go Test.TestFailAgree2B in mit6.824/raft" />
       </list>
     </recent_temporary>
   </component>
@@ -198,46 +191,46 @@
     </state>
     <state x="965" y="1761" width="708" height="597" key="#xdebugger.evaluate/0.0.2560.2460@0.0.2560.2460" timestamp="1604049894118" />
     <state x="965" y="837" width="708" height="603" key="#xdebugger.evaluate/372.1440.1920.1080/0.0.2560.1440@0.0.2560.1440" timestamp="1610183824637" />
-    <state x="1304" y="576" width="736" height="563" key="FileChooserDialogImpl" timestamp="1610114248205">
-      <screen x="0" y="0" width="2560" height="1440" />
+    <state x="1033" y="608" width="736" height="563" key="FileChooserDialogImpl" timestamp="1610286501171">
+      <screen x="0" y="0" width="2560" height="2460" />
     </state>
     <state x="775" y="252" width="736" height="563" key="FileChooserDialogImpl/0.0.1920.1020@0.0.1920.1020" timestamp="1608044991022" />
     <state x="775" y="257" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1608705514108" />
-    <state x="1033" y="608" key="FileChooserDialogImpl/0.0.2560.2460@0.0.2560.2460" timestamp="1604136336202" />
+    <state x="1033" y="608" key="FileChooserDialogImpl/0.0.2560.2460@0.0.2560.2460" timestamp="1610286501171" />
     <state x="1107" y="1707" key="FileChooserDialogImpl/332.1440.1920.1080/0.0.2560.1440@332.1440.1920.1080" timestamp="1603623342026" />
     <state x="1033" y="356" key="FileChooserDialogImpl/339.1440.1920.1080/0.0.2560.1440@0.0.2560.1440" timestamp="1610093893111" />
     <state x="1114" y="1707" key="FileChooserDialogImpl/339.1440.1920.1080/0.0.2560.1440@339.1440.1920.1080" timestamp="1603698167522" />
     <state x="1304" y="576" key="FileChooserDialogImpl/372.1440.1920.1080/0.0.2560.1440@0.0.2560.1440" timestamp="1610114248205" />
-    <state width="2478" height="429" key="GridCell.Tab.0.bottom" timestamp="1610286189485">
-      <screen x="0" y="0" width="2560" height="2460" />
+    <state width="1838" height="361" key="GridCell.Tab.0.bottom" timestamp="1610292079873">
+      <screen x="0" y="0" width="1920" height="1020" />
     </state>
-    <state width="1838" height="334" key="GridCell.Tab.0.bottom/0.0.1920.1020@0.0.1920.1020" timestamp="1610213583352" />
+    <state width="1838" height="361" key="GridCell.Tab.0.bottom/0.0.1920.1020@0.0.1920.1020" timestamp="1610292079873" />
     <state width="1877" height="238" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1608794925378" />
-    <state width="2478" height="429" key="GridCell.Tab.0.bottom/0.0.2560.2460@0.0.2560.2460" timestamp="1610286189485" />
+    <state width="2478" height="457" key="GridCell.Tab.0.bottom/0.0.2560.2460@0.0.2560.2460" timestamp="1610288434014" />
     <state width="2478" height="309" key="GridCell.Tab.0.bottom/339.1440.1920.1080/0.0.2560.1440@0.0.2560.1440" timestamp="1610093904700" />
     <state width="2478" height="362" key="GridCell.Tab.0.bottom/372.1440.1920.1080/0.0.2560.1440@0.0.2560.1440" timestamp="1610201750548" />
-    <state width="2478" height="429" key="GridCell.Tab.0.center" timestamp="1610286189485">
-      <screen x="0" y="0" width="2560" height="2460" />
+    <state width="1838" height="361" key="GridCell.Tab.0.center" timestamp="1610292079872">
+      <screen x="0" y="0" width="1920" height="1020" />
     </state>
-    <state width="1838" height="334" key="GridCell.Tab.0.center/0.0.1920.1020@0.0.1920.1020" timestamp="1610213583352" />
+    <state width="1838" height="361" key="GridCell.Tab.0.center/0.0.1920.1020@0.0.1920.1020" timestamp="1610292079872" />
     <state width="1877" height="238" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1608794925378" />
-    <state width="2478" height="429" key="GridCell.Tab.0.center/0.0.2560.2460@0.0.2560.2460" timestamp="1610286189485" />
+    <state width="2478" height="457" key="GridCell.Tab.0.center/0.0.2560.2460@0.0.2560.2460" timestamp="1610288434013" />
     <state width="2478" height="309" key="GridCell.Tab.0.center/339.1440.1920.1080/0.0.2560.1440@0.0.2560.1440" timestamp="1610093904700" />
     <state width="2478" height="362" key="GridCell.Tab.0.center/372.1440.1920.1080/0.0.2560.1440@0.0.2560.1440" timestamp="1610201750548" />
-    <state width="2478" height="429" key="GridCell.Tab.0.left" timestamp="1610286189485">
-      <screen x="0" y="0" width="2560" height="2460" />
+    <state width="1838" height="361" key="GridCell.Tab.0.left" timestamp="1610292079872">
+      <screen x="0" y="0" width="1920" height="1020" />
     </state>
-    <state width="1838" height="334" key="GridCell.Tab.0.left/0.0.1920.1020@0.0.1920.1020" timestamp="1610213583352" />
+    <state width="1838" height="361" key="GridCell.Tab.0.left/0.0.1920.1020@0.0.1920.1020" timestamp="1610292079872" />
     <state width="1877" height="238" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1608794925378" />
-    <state width="2478" height="429" key="GridCell.Tab.0.left/0.0.2560.2460@0.0.2560.2460" timestamp="1610286189485" />
+    <state width="2478" height="457" key="GridCell.Tab.0.left/0.0.2560.2460@0.0.2560.2460" timestamp="1610288434013" />
     <state width="2478" height="309" key="GridCell.Tab.0.left/339.1440.1920.1080/0.0.2560.1440@0.0.2560.1440" timestamp="1610093904700" />
     <state width="2478" height="362" key="GridCell.Tab.0.left/372.1440.1920.1080/0.0.2560.1440@0.0.2560.1440" timestamp="1610201750548" />
-    <state width="2478" height="429" key="GridCell.Tab.0.right" timestamp="1610286189485">
-      <screen x="0" y="0" width="2560" height="2460" />
+    <state width="1838" height="361" key="GridCell.Tab.0.right" timestamp="1610292079872">
+      <screen x="0" y="0" width="1920" height="1020" />
     </state>
-    <state width="1838" height="334" key="GridCell.Tab.0.right/0.0.1920.1020@0.0.1920.1020" timestamp="1610213583352" />
+    <state width="1838" height="361" key="GridCell.Tab.0.right/0.0.1920.1020@0.0.1920.1020" timestamp="1610292079872" />
     <state width="1877" height="238" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1608794925378" />
-    <state width="2478" height="429" key="GridCell.Tab.0.right/0.0.2560.2460@0.0.2560.2460" timestamp="1610286189485" />
+    <state width="2478" height="457" key="GridCell.Tab.0.right/0.0.2560.2460@0.0.2560.2460" timestamp="1610288434014" />
     <state width="2478" height="309" key="GridCell.Tab.0.right/339.1440.1920.1080/0.0.2560.1440@0.0.2560.1440" timestamp="1610093904700" />
     <state width="2478" height="362" key="GridCell.Tab.0.right/372.1440.1920.1080/0.0.2560.1440@0.0.2560.1440" timestamp="1610201750548" />
     <state width="2478" height="395" key="GridCell.Tab.1.bottom" timestamp="1610184828887">
@@ -277,12 +270,12 @@
       <screen x="0" y="0" width="2560" height="2460" />
     </state>
     <state width="960" height="510" key="XDebugger.FullValuePopup/0.0.2560.2460@0.0.2560.2460" timestamp="1604049881601" />
-    <state x="661" y="294" width="1234" height="1002" key="search.everywhere.popup" timestamp="1610181285727">
-      <screen x="0" y="0" width="2560" height="1440" />
+    <state x="661" y="502" width="1234" height="1710" key="search.everywhere.popup" timestamp="1610288316714">
+      <screen x="0" y="0" width="2560" height="2460" />
     </state>
     <state x="496" y="208" width="925" height="709" key="search.everywhere.popup/0.0.1920.1020@0.0.1920.1020" timestamp="1607523713931" />
     <state x="496" y="212" width="925" height="723" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1609139838797" />
-    <state x="661" y="502" width="1234" height="1710" key="search.everywhere.popup/0.0.2560.2460@0.0.2560.2460" timestamp="1604149023483" />
+    <state x="661" y="502" width="1234" height="1710" key="search.everywhere.popup/0.0.2560.2460@0.0.2560.2460" timestamp="1610288316714" />
     <state x="661" y="294" width="1234" height="1002" key="search.everywhere.popup/372.1440.1920.1080/0.0.2560.1440@0.0.2560.1440" timestamp="1610181285727" />
   </component>
   <component name="XDebuggerManager">
