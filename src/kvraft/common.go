@@ -10,6 +10,10 @@ type Err string
 
 // Put or Append
 type PutAppendArgs struct {
+
+	ClientId int
+	Seq int
+
 	Key   string
 	Value string
 	Op    string // "Put" or "Append"
@@ -19,15 +23,21 @@ type PutAppendArgs struct {
 }
 
 type PutAppendReply struct {
-	Err Err
+	IsLeader bool
+	Err      Err
 }
 
 type GetArgs struct {
+
+	ClientId int
+	Seq int
+
 	Key string
 	// You'll have to add definitions here.
 }
 
 type GetReply struct {
-	Err   Err
-	Value string
+	IsLeader bool
+	Err      Err
+	Value    string
 }

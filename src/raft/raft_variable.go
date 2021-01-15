@@ -44,6 +44,12 @@ func (rf *Raft) isLeader() bool{
 	return rf.state==LEADER
 }
 
+func (rf *Raft) IsLeader() bool{
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
+	return rf.state==LEADER
+}
+
 func (rf *Raft) isFollower() bool{
 	rf.mu.Lock()
 	defer rf.mu.Unlock()

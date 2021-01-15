@@ -1,0 +1,22 @@
+
+
+
+
+
+2021/01/15 17:47:26 #Client.2:Request To Get Key 0 with cid:2/12
+2021/01/15 17:47:26 #Server.0:Request To Get Key 0 with cid:2/12
+2021/01/15 17:47:26 #Server.0:For Key 0, Do Get, now Value is |x 0 0 yx 0 1 yx 0 2 yx 0 3 yx 0 4 y|
+2021/01/15 17:47:26 #Server.0:Successfully Get Key 0 and Value is x 0 0 yx 0 1 yx 0 2 yx 0 3 yx 0 4 y
+2021/01/15 17:47:27 #Server.1:For Key 0, Do Get, now Value is |x 0 0 yx 0 1 yx 0 2 yx 0 3 yx 0 4 y|
+
+2021/01/15 17:47:26 #Client.2:Request Out Of Time To Call Server.0
+2021/01/15 17:47:26 #Client.2:Request Out Of Time To Call Server.1
+2021/01/15 17:47:26 #Client.2:Request Out Of Time To Call Server.0
+2021/01/15 17:47:26 #Client.2:Request Out Of Time To Call Server.0
+2021/01/15 17:47:26 #Server.0:Request To Get Key 0 with cid:2/12
+2021/01/15 17:47:27 #Server.0:Unexpect Repeat Commit!
+2021/01/15 17:47:27 #Server.1:Unexpect Repeat Commit!
+2021/01/15 17:47:28 #Server.0:Time Out!
+2021/01/15 17:47:28 #Server.1:Request To Get Key 0 with cid:2/12
+2021/01/15 17:47:29 #Server.1:Unexpect Repeat Commit!
+2021/01/15 17:47:29 #Server.0:Unexpect Repeat Commit!

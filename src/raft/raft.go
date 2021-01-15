@@ -15,7 +15,7 @@ type ApplyMsg struct {
 
 
 func (rf *Raft) GetState() (int, bool) {
-	return rf.currentTerm, rf.state == LEADER
+	return rf.currentTerm, rf.isLeader()
 }
 
 func (rf *Raft) startUp() {

@@ -1,12 +1,13 @@
 package kvraft
 
 import (
-	"../labgob"
-	"../labrpc"
 	"log"
-	"../raft"
+	"mit6.824/labgob"
+	"mit6.824/labrpc"
+	"mit6.824/raft"
 	"sync"
 	"sync/atomic"
+	"time"
 )
 
 const Debug = 0
@@ -18,15 +19,19 @@ func DPrintf(format string, a ...interface{}) (n int, err error) {
 	return
 }
 
-
 type Op struct {
+	OpType   string
+	Key      string
+	Value    string
+	ClientId int
+	Seq      int
 	// Your definitions here.
 	// Field names must start with capital letters,
 	// otherwise RPC will break.
 }
 
 type KVServer struct {
-	mu      sync.Mutex
+
 	me      int
 	rf      *raft.Raft
 	applyCh chan raft.ApplyMsg
@@ -34,16 +39,102 @@ type KVServer struct {
 
 	maxraftstate int // snapshot if log grows this big
 
+	mu      sync.Mutex
 	// Your definitions here.
+	db    Database
+	chMap map[int]chan Op
+
+	seqMap map[int]int
+
 }
 
-
 func (kv *KVServer) Get(args *GetArgs, reply *GetReply) {
-	// Your code here.
+
+	op := Op{"Get", args.Key, "",args.ClientId,args.Seq}
+
+	if !kv.rf.IsLeader(){
+		return
+	}
+
+	index, _, isLeader := kv.rf.Start(op)
+	if !isLeader {
+		return
+	}
+
+	kv.DPrintf(1, "Request To Get Key %v with cid:%v/%v", args.Key,args.ClientId,args.Seq)
+
+	if !kv.beNotified(index,op){
+		return
+	}
+
+	reply.IsLeader = true
+	reply.Value = kv.db.Get(op.Key)
+
+	kv.DPrintf(1, "Successfully Get Key %v and Value is %v", args.Key,reply.Value)
+
+}
+
+func (kv *KVServer) beNotified(index int,op Op) bool{
+
+	//等待同步完成
+	ch := kv.indexChan(index)
+
+	//检查同步结果
+	select {
+		case nop:=<-ch:
+			if nop.Equal(op){
+				return true
+			}
+			kv.DPrintf(1, "Execute Changed!")
+			return false
+		case <-time.After(time.Second*2):
+			kv.DPrintf(1, "Time Out!")
+			return false
+	}
+
 }
 
 func (kv *KVServer) PutAppend(args *PutAppendArgs, reply *PutAppendReply) {
-	// Your code here.
+
+	op := Op{args.Op, args.Key, args.Value,args.ClientId,args.Seq}
+
+	if !kv.rf.IsLeader(){
+		return
+	}
+
+	index, _, isLeader := kv.rf.Start(op)
+
+	if !isLeader {
+		return
+	}
+
+	kv.DPrintf(1, "Request To %v Key %v and Value |%v|  with cid:%v/%v", args.Op, args.Key, args.Value,args.ClientId,args.Seq)
+
+	if !kv.beNotified(index,op){
+		return
+	}
+
+	reply.IsLeader = true
+
+	kv.DPrintf(1, "Successfully %v Key %v",op.OpType, args.Key)
+
+}
+
+func (kv *KVServer) indexChan(idx int) chan Op {
+
+	kv.mu.Lock()
+	defer kv.mu.Unlock()
+
+	if _, ok := kv.chMap[idx]; !ok {
+		kv.chMap[idx] = make(chan Op, 1)
+	}
+	return kv.chMap[idx]
+}
+
+func (op *Op) Equal(op2 Op) bool{
+	return op.Key==op2.Key && op.Value==op2.Value &&
+		op.OpType==op2.OpType &&
+		op.ClientId==op2.ClientId && op.Seq==op2.Seq
 }
 
 //
@@ -95,7 +186,43 @@ func StartKVServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persiste
 	kv.applyCh = make(chan raft.ApplyMsg)
 	kv.rf = raft.Make(servers, me, persister, kv.applyCh)
 
-	// You may need initialization code here.
+	kv.db = Database{db:make(map[string]string)}
+	kv.chMap = make(map[int]chan Op)
+	kv.seqMap = make(map[int]int)
+
+	go func() {
+		for applyMsg := range kv.applyCh {
+			op := applyMsg.Command.(Op)
+
+
+			if kv.seqMap[op.ClientId]<op.Seq{
+
+				//应用到状态机
+				switch op.OpType {
+				case "Put":
+					kv.db.Put(op.Key,op.Value)
+				case "Append":
+					kv.db.Append(op.Key,op.Value)
+				case "Get":
+
+				}
+
+				//给seq做记录
+				kv.mu.Lock()
+				kv.seqMap[op.ClientId] = op.Seq
+				kv.mu.Unlock()
+
+				kv.DPrintf(1, "For Key %v, Do %v, now Value is |%v|", op.Key,op.OpType, kv.db.Get(op.Key))
+
+			}else{
+				kv.DPrintf(1, "Unexpect Repeat Commit!")
+			}
+			index := applyMsg.CommandIndex
+			ch := kv.indexChan(index)
+			ch <- op
+
+		}
+	}()
 
 	return kv
 }
