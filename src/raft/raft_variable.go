@@ -29,6 +29,10 @@ type Raft struct {
 	applyCh     chan ApplyMsg
 	voteCh      chan bool
 	appendLogCh chan bool
+
+	lastIncludedIndex int
+	lastIncludedTerm int
+
 }
 
 
@@ -94,21 +98,34 @@ func (rf *Raft) setLog(logs []Log) {
 	rf.log = logs
 }
 
-func (rf *Raft) appendLog(command interface{}) (index,term int){
+func (rf *Raft) appendLog(command interface{}) (term,index int){
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
 	defer rf.persist()
 	rf.log = append(rf.log, Log{
 		rf.currentTerm,command,
 	})
-	return rf.currentTerm,len(rf.log)-1
+	return rf.currentTerm,rf.lastLogRealIndex()
 }
+
+
+
+func (rf *Raft) lastLogRealIndex() int{
+	return len(rf.log)-1+rf.lastIncludedIndex
+}
+
+func (rf *Raft) LogRealLen() int{
+	return len(rf.log)+rf.lastIncludedIndex
+}
+
+
 
 func (rf *Raft) getLogLen() int{
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
-	return len(rf.log)
+	return rf.LogRealLen()
 }
+
 
 //日志匹配后对next和match做修改
 func (rf *Raft) logMatch(idx,matchIdx int) {
@@ -220,7 +237,7 @@ func (rf *Raft) leaderInit(){
 	rf.matchIndex = make([]int, len(rf.peers))
 
 	for i := 0; i < len(rf.nextIndex); i++ {
-		rf.nextIndex[i] = len(rf.log)
+		rf.nextIndex[i] = rf.LogRealLen()
 	}
 }
 
@@ -228,7 +245,7 @@ func (rf *Raft) leaderInit(){
 func (rf *Raft) lastLogTerm() int {
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
-	index := len(rf.log) - 1
+	index := rf.lastLogRealIndex()
 	if index < 0 {
 		return -1
 	}
@@ -238,7 +255,7 @@ func (rf *Raft) lastLogTerm() int {
 func (rf *Raft) lastLogIndex() int {
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
-	return len(rf.log) - 1
+	return rf.lastLogRealIndex()
 }
 
 
@@ -251,7 +268,7 @@ func (rf *Raft) getLastLog() (log Log,term int,index int) {
 		return Log{},-1,index
 	}
 
-	return rf.log[index],rf.log[index].Term,index
+	return rf.log[index],rf.log[index].Term,rf.lastLogRealIndex()
 
 }
 
@@ -302,6 +319,8 @@ func (rf *Raft) updateCommitIndexFollower(leaderCommit int) {
 	rf.persist()
 }
 
+
+//fixme lab3b这里应该要修正
 func (rf *Raft) nextIdxRollBack(idx,conflictTerm,conflictIndex int) {
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
@@ -312,6 +331,11 @@ func (rf *Raft) nextIdxRollBack(idx,conflictTerm,conflictIndex int) {
 		rf.nextIndex[idx]--
 
 		//todo 小概率会有因为shorten了之后out of index的情况!
+		//大概是a的情况cut了日志之后别人的nextIndex还没减去
+		//这里也是那个不太好的设计的不良收尾的地方
+		if rf.nextIndex[idx]>=rf.LogRealLen(){
+			rf.nextIndex[idx] = rf.lastLogRealIndex()
+		}
 
 		for rf.log[rf.nextIndex[idx]].Term > conflictTerm {
 			rf.nextIndex[idx]--
@@ -327,3 +351,4 @@ func (rf *Raft) nextIdxRollBack(idx,conflictTerm,conflictIndex int) {
 	//rf.DPrintf(3, "Now leader for %v roll back to %v and term is %v",idx,rf.nextIndex[idx],rf.log[rf.nextIndex[idx]].Term)
 
 }
+

@@ -5,7 +5,7 @@ import (
 	"strconv"
 )
 
-var DebugLab = []bool{true,true,true}
+var DebugLab = []bool{false,false,false}
 var DebugLogger = 0
 
 func (rf *Raft) DPrintf(labNo int,str string,a ...interface{}){

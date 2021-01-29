@@ -28,3 +28,15 @@ func (db *Database) Append(key,value string){
 	defer db.mu.Unlock()
 	db.db[key] += value
 }
+
+func (db *Database) Load(data map[string]string){
+	db.mu.Lock()
+	defer db.mu.Unlock()
+	db.db = data
+}
+
+func (db *Database) Save() map[string]string{
+	db.mu.Lock()
+	defer db.mu.Unlock()
+	return db.db
+}

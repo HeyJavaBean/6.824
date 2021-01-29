@@ -29,6 +29,9 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 	defer rf.rpc.Unlock()
 
 	rf.DPrintf(1,string(strconv.Itoa(args.CandidateId)+" ask me to vote him"))
+	rf.DPrintf(1,"check1=> args Term:%v >= My Term:%v",args.Term,rf.getCurrentTerm())
+	rf.DPrintf(1,"check2=> args Last Index:%v >= My Last Index:%v",args.LastLogIndex,rf.lastLogIndex())
+	rf.DPrintf(1,"check3=> args Last Term:%v >= My Last Term:%v",args.LastLogTerm,rf.lastLogTerm())
 
 
 	success := false
@@ -47,9 +50,6 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 		rf.DPrintf(1,"No New")
 	} else {
 		//变成那人的follower,同时通过term来判断是否可以覆盖vote
-		rf.DPrintf(1,"check1=> args Term:%v >= My Term:%v",args.Term,rf.getCurrentTerm())
-		rf.DPrintf(1,"check2=> args Last Index:%v >= My Last Index:%v",args.LastLogIndex,rf.lastLogIndex())
-		rf.DPrintf(1,"check3=> args Last Term:%v >= My Last Term:%v",args.LastLogTerm,rf.lastLogTerm())
 		success = rf.followOther(args.CandidateId,args.Term)
 	}
 

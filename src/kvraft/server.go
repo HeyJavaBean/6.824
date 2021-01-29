@@ -46,6 +46,9 @@ type KVServer struct {
 
 	seqMap map[int]int
 
+
+	persister *raft.Persister
+
 }
 
 func (kv *KVServer) Get(args *GetArgs, reply *GetReply) {
@@ -158,6 +161,7 @@ func (kv *KVServer) killed() bool {
 	return z == 1
 }
 
+
 //
 // servers[] contains the ports of the set of
 // servers that will cooperate via Raft to
@@ -181,6 +185,7 @@ func StartKVServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persiste
 	kv.me = me
 	kv.maxraftstate = maxraftstate
 
+	kv.persister = persister
 	// You may need initialization code here.
 
 	kv.applyCh = make(chan raft.ApplyMsg)
@@ -189,6 +194,10 @@ func StartKVServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persiste
 	kv.db = Database{db:make(map[string]string)}
 	kv.chMap = make(map[int]chan Op)
 	kv.seqMap = make(map[int]int)
+
+	//加载缓存的内容
+
+	kv.readSnapshot(kv.persister.ReadSnapshot())
 
 	go func() {
 		for applyMsg := range kv.applyCh {
@@ -220,6 +229,10 @@ func StartKVServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persiste
 			index := applyMsg.CommandIndex
 			ch := kv.indexChan(index)
 			ch <- op
+
+			if kv.needSnapshot(){
+				kv.doSnapshot(index)
+			}
 
 		}
 	}()

@@ -10,6 +10,10 @@ type ApplyMsg struct {
 	CommandValid bool
 	Command      interface{}
 	CommandIndex int
+
+	UseSnapShot bool
+	SnapShot []byte
+
 }
 
 
