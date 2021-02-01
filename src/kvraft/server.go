@@ -1,7 +1,6 @@
 package kvraft
 
 import (
-	"log"
 	"mit6.824/labgob"
 	"mit6.824/labrpc"
 	"mit6.824/raft"
@@ -9,15 +8,6 @@ import (
 	"sync/atomic"
 	"time"
 )
-
-const Debug = 0
-
-func DPrintf(format string, a ...interface{}) (n int, err error) {
-	if Debug > 0 {
-		log.Printf(format, a...)
-	}
-	return
-}
 
 type Op struct {
 	OpType   string
@@ -46,6 +36,7 @@ type KVServer struct {
 
 	seqMap map[int]int
 
+	threshold int
 
 	persister *raft.Persister
 
@@ -55,6 +46,7 @@ func (kv *KVServer) Get(args *GetArgs, reply *GetReply) {
 
 	op := Op{"Get", args.Key, "",args.ClientId,args.Seq}
 
+	//todo 感觉这里可以删掉
 	if !kv.rf.IsLeader(){
 		return
 	}
@@ -186,7 +178,6 @@ func StartKVServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persiste
 	kv.maxraftstate = maxraftstate
 
 	kv.persister = persister
-	// You may need initialization code here.
 
 	kv.applyCh = make(chan raft.ApplyMsg)
 	kv.rf = raft.Make(servers, me, persister, kv.applyCh)
@@ -195,43 +186,47 @@ func StartKVServer(servers []*labrpc.ClientEnd, me int, persister *raft.Persiste
 	kv.chMap = make(map[int]chan Op)
 	kv.seqMap = make(map[int]int)
 
-	//加载缓存的内容
+	kv.threshold = 10
 
-	kv.readSnapshot(kv.persister.ReadSnapshot())
+	//加载快照内容
+	kv.loadSnapshot(kv.persister.ReadSnapshot())
 
 	go func() {
-		for applyMsg := range kv.applyCh {
-			op := applyMsg.Command.(Op)
+		for msg := range kv.applyCh {
 
+			//如果从leader接受到了快照，需要应用
+			if msg.UseSnapShot{
+				kv.mu.Lock()
+				kv.loadSnapshot(msg.SnapShot)
+				kv.mu.Unlock()
+				continue
+			}
+
+			//正常情况的指令则是用状态机执行
+			op := msg.Command.(Op)
+
+			//fixme 感觉这个地方好像不需要加锁啊？？？
+			//kv.mu.Lock()
 
 			if kv.seqMap[op.ClientId]<op.Seq{
-
 				//应用到状态机
-				switch op.OpType {
-				case "Put":
-					kv.db.Put(op.Key,op.Value)
-				case "Append":
-					kv.db.Append(op.Key,op.Value)
-				case "Get":
-
-				}
-
+				kv.db.Apply(op)
 				//给seq做记录
-				kv.mu.Lock()
 				kv.seqMap[op.ClientId] = op.Seq
-				kv.mu.Unlock()
-
+				//日志打印
 				kv.DPrintf(1, "For Key %v, Do %v, now Value is |%v|", op.Key,op.OpType, kv.db.Get(op.Key))
-
 			}else{
 				kv.DPrintf(1, "Unexpect Repeat Commit!")
 			}
-			index := applyMsg.CommandIndex
-			ch := kv.indexChan(index)
-			ch <- op
 
+			//kv.mu.Unlock()
+
+			//通知执行完成，响应client
+			kv.indexChan(msg.CommandIndex)<-op
+
+			//检查是否需要做快照记录
 			if kv.needSnapshot(){
-				kv.doSnapshot(index)
+				kv.doSnapshot(msg.CommandIndex)
 			}
 
 		}

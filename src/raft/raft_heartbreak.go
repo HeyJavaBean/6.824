@@ -32,6 +32,17 @@ func (rf *Raft) doHeartBreak() {
 						return
 					}
 
+
+					//fixme  快照安装的时机选择
+					if rf.nextIndex[idx] - rf.lastIncludedIndex<1{
+						rf.sendSnapshot(idx)
+						return
+					}
+
+
+
+
+
 					//主要是currentTerm和commitIndex后续会变
 					args := rf.getAppendEntriesArgs(idx)
 					reply := &AppendEntriesReply{}

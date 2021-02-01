@@ -29,6 +29,18 @@ func (db *Database) Append(key,value string){
 	db.db[key] += value
 }
 
+func (db *Database) Apply(op Op){
+	//应用到状态机
+	switch op.OpType {
+	case "Put":
+		db.Put(op.Key,op.Value)
+	case "Append":
+		db.Append(op.Key,op.Value)
+	case "Get":
+
+	}
+}
+
 func (db *Database) Load(data map[string]string){
 	db.mu.Lock()
 	defer db.mu.Unlock()

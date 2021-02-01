@@ -1,6 +1,7 @@
 package raft
 
 import (
+	"fmt"
 	"mit6.824/labrpc"
 	"sort"
 	"sync"
@@ -207,6 +208,7 @@ func (rf *Raft) getAppendEntriesArgs(idx int) *AppendEntriesArgs{
 	defer rf.mu.Unlock()
 
 	nextIndex := rf.nextIndex[idx]
+	fmt.Println("next index is ",nextIndex," and log len", len(rf.log))
 	log := rf.log
 	entry := append([]Log{}, log[nextIndex:]...)
 
@@ -280,9 +282,9 @@ func (rf *Raft) updateLastApplied() {
 		rf.lastApplied++
 		curLog := rf.log[rf.lastApplied]
 		msg := ApplyMsg{
-			true,
-			curLog.Command,
-			rf.lastApplied,
+			CommandValid: true,
+			Command: curLog.Command,
+			CommandIndex: rf.lastApplied,
 		}
 		rf.applyCh <- msg
 	}
